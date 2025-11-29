@@ -1,0 +1,750 @@
+map220v / kirin710_bootrom_exploit 
+Public
+Conversation 41 Commits 1 Checks 0 Files changed 1
+Code Pull requests 
+1 
+Actions Security Insights
+Jump to bottom
+NEED HELP ABOUT kirin710_bootrom_exploit #1
+Open 
+hicode002 wants to merge 1 commit into from
+New issue
+map220v:master hicode002:master
+NEED HELP ABOUT kirin710_bootrom_exploit by hicode002 ... https://github.com/map220v/kirin710_bootrom_exploit/pull/1
+1 of 25 11/28/25, 2:53 AM
+
+hicode002 commented on Apr 25 •
+I am sorry to post this issue here,but you do not enable issues on that repo.
+I want to exploit kirin710A(not the same as kirin710)(no hwdog certify to unlock bootloader).Now I
+met some problems.
+The first problem is about head resend exploit.You send payload at 0x49BC8.How do you find the
+address?(Is the address about the return address of download_xloader?).And why you send
+0x2316d data at this address?(If we want to jump to xloader directly ,why not send 0x22000?) If I
+want to find the addresses and payload for kirin710A,what should I do?
+The second problem is about reversing XLOADER(not encrypted).I use ida64.Without 4096B of
+certs,It is an ELF file.But When I use ida64,it can not parse the elf file,and tells me SHT table size or
+offset is invalid.And I can not get any decompiled code.What should I do to fix this?Should I load
+this elf file with another loading address and file offset instead of the elf header tells us?
+And I need to get the decompiled xloader to patch the address and length check and the image
+verification check.
+How do I find these checks for kirin710A and how to patch it?
+The third problem is about decrypting fastboot.I see you use a patched inquiry command to
+transfer 0x400 bytes each time?Can you tell me the details about how to achieve this?
+The last problem is about reversing fastboot.I use ida64.I don't know the correct loading address
+and file offset.How do I find them?And it seems there is a MAGIC header,do I need to remove it for
+reversing?
+@map220v
+edited
+Update README.md af8c6a2
+map220v commented on Apr 25
+About addresses in exploit, 0x49BC8 indeed contains return address for download_xloader
+function, and I return to 0x2316C(+1) because that's where xloader entry point is located and
+0x22000 doesn't contain any code
+Owner
+NEED HELP ABOUT kirin710_bootrom_exploit by hicode002 ... https://github.com/map220v/kirin710_bootrom_exploit/pull/1
+2 of 25 11/28/25, 2:53 AM
+
+To load original xloader(with cert) in ida you need to select "ARM Little-endian" and use 0x22000 as
+"ROM start address" and "Loading address"
+To remove xloader's signature check you only need to nop this function call and while loop.
+About patched inquiry command, 0x30924 is a start of 0xCD command handling, this part patches
+this handler to copy fastboot(it's address will be stored in "a1 + 0x3DB" which is usb buffer+4) to
+xloader's usb buffer(a1 + 0x3D8) and then it will be sent with sub_314F8 that had it's send size
+changed to 1024 bytes.
+Fastboot address is 0x3C000000 in main cpu's use it same way as when loading xloader in ida, and
+you can ignore "MAGIC header" in fastboot.
+If Kirin 710A can load xloader and uce from 710 and head resend exploit doesn't work for some
+reason then try reverting this commit 
+bc246cd , because with that commit last time I used exploit
+again it only worked when I erased xloader from eMMC.
+NEED HELP ABOUT kirin710_bootrom_exploit by hicode002 ... https://github.com/map220v/kirin710_bootrom_exploit/pull/1
+3 of 25 11/28/25, 2:53 AM
+
+again it only worked when I erased xloader from eMMC.
+hicode002 commented on Apr 25
+About addresses in exploit, 0x49BC8 indeed contains return address for download_xloader
+function, and I return to 0x2316C(+1) because that's where xloader entry point is located and
+0x22000 doesn't contain any code image To load original xloader(with cert) in ida you need to
+select "ARM Little-endian" and use 0x22000 as "ROM start address" and "Loading address" To
+remove xloader's signature check you only need to nop this function call and while loop. image
+image
+About patched inquiry command, 0x30924 is a start of 0xCD command handling, this part
+patches this handler to copy fastboot(it's address will be stored in "a1 + 0x3DB" which is usb
+buffer+4) to xloader's usb buffer(a1 + 0x3D8) and then it will be sent with sub_314F8 that had
+it's send size changed to 1024 bytes. image
+Fastboot address is 0x3C000000 in main cpu's use it same way as when loading xloader in ida,
+and you can ignore "MAGIC header" in fastboot.
+If Kirin 710A can load xloader and uce from 710 and head resend exploit doesn't work for
+some reason then try reverting this commit bc246cd, because with that commit last time I
+used exploit again it only worked when I erased xloader from eMMC.
+OK.I have tried your method .Load xloader-orig.img as ARM-little endian and 32-bit mode.Both of
+the loading address and start address are 0x22000.The file offset=0x0.Then when I press "C" at line
+0x2316c,IDA does not recognize these codes and gives me make code failed.
+What's the problem?
+And Kirin 710A is completely different from Kirin710(xloader diffs a lot).So maybe 0x49BC8 is not fit
+for it.I want to know how do you find the address?
+Author
+NEED HELP ABOUT kirin710_bootrom_exploit by hicode002 ... https://github.com/map220v/kirin710_bootrom_exploit/pull/1
+4 of 25 11/28/25, 2:53 AM
+
+And I see that you use kirin710 eng xloader.But for kirin710A,I don't have eng xloader.So maybe I
+need to patch the download address and length check?
+map220v commented on Apr 25 •
+OK.I have tried your method .Load xloader-orig.img as ARM-little endian and 32-bit mode.Both
+of the loading address and start address are 0x22000.The file offset=0x0.Then when I press "C"
+at line 0x2316c,IDA does not recognize these codes and gives me make code failed.
+IDA doesn't automatically detect this function, you need to select 0x2316c-0x235C3(first analyzed
+function starts after) and use "Analyze selected area" in context menu, then IDA will find this
+function.
+And Kirin 710A is completely different from Kirin710(xloader diffs a lot).So maybe 0x49BC8 is
+not fit for it.I want to know how do you find the address?
+0x49bfc is a start of bootrom stack(reference), to find needed LR reg address I just tried each addr
+after 0x49BD4(0x49BD0, 0x49BCC, etc) untill reached 0x49BC8 where bootrom stopped crashing or
+failing to check xloader signature.
+And I see that you use kirin710 eng xloader.But for kirin710A,I don't have eng xloader.So
+maybe I need to patch the download address and length check?
+Latest commit uses original(from EMUI 9.1.0) xloader.img with signature zeroed(just in case if
+something checks/uses anti rollback byte) and bootloader.img verification removed(compare in bin
+diff tools with xloader-orig.img), also I didn't patched inquiry command in it.
+Owner
+edited
+hicode002 commented on Apr 25
+@map220v So does the latest commit support decrypt fastboot image?I see your patched inquiry
+command need using writing arbitary address and data in xloader? I am not sure if it is not eng
+xloader ,whether this is supported?Should I patch more things ?
+Author
+map220v commented on Apr 25
+@map220v So does the latest commit support decrypt fastboot image?I see your patched
+inquiry command need using writing arbitary address and data in xloader? I am not sure if it is
+not eng xloader ,whether this is supported?Should I patch more things ?
+Latest supports decrypted fastboot downloading, only need to patch inquiry command in xloader
+and replace this with "while (1);", so that it won't start booting fastboot on success.
+Owner
+NEED HELP ABOUT kirin710_bootrom_exploit by hicode002 ... https://github.com/map220v/kirin710_bootrom_exploit/pull/1
+5 of 25 11/28/25, 2:53 AM
+
+In exploit.py only uncomment https://github.com/map220v/kirin710_bootrom_exploit/blob/master/
+exploit.py#L196-L207
+hicode002 commented on Apr 25
+@map220v So does the latest commit support decrypt fastboot image?I see your patched
+inquiry command need using writing arbitary address and data in xloader? I am not sure
+if it is not eng xloader ,whether this is supported?Should I patch more things ?
+Latest supports decrypted fastboot downloading, only need to patch inquiry command in
+xloader and replace this with "while (1);", so that it won't start booting fastboot on success.
+image In exploit.py only uncomment https://github.com/map220v/kirin710_bootrom_exploit/
+blob/master/exploit.py#L196-L207
+Ok,now I successfully reverse KIRIN710A's xloader.But I can not reverse KIRIN710's fastboot.I use
+the correct load address and rom start address and use 0 as the file offset(in 64bit).And I also
+import symbols.txt.But when I press "C" at v300_fastboot_start,some codes are reversed.But lots of
+codes are red.And many codes are not decompiled.
+Author
+NEED HELP ABOUT kirin710_bootrom_exploit by hicode002 ... https://github.com/map220v/kirin710_bootrom_exploit/pull/1
+6 of 25 11/28/25, 2:53 AM
+
+What should I do to reverse fastboot completely?
+map220v commented on Apr 25
+Ok,now I successfully reverse KIRIN710A's xloader.But I can not reverse KIRIN710's fastboot.I
+use the correct load address and rom start address and use 0 as the file offset(in 64bit).And I
+also import symbols.txt.But when I press "C" at v300_fastboot_start,some codes are
+reversed.But lots of codes are red.And many codes are not decompiled.
+Owner
+NEED HELP ABOUT kirin710_bootrom_exploit by hicode002 ... https://github.com/map220v/kirin710_bootrom_exploit/pull/1
+7 of 25 11/28/25, 2:53 AM
+
+reversed.But lots of codes are red.And many codes are not decompiled.
+Select "v300_fastboot_start" and use "Create function" in context menu, IDA will register it as
+function and will do more analysis that will find other functions that are called from it. In case with
+functions like boot_bl31 and set_GIC, select range and manually analyze them using context menu
+option.
+hicode002 commented on Apr 27
+Ok,now I successfully reverse KIRIN710A's xloader.But I can not reverse KIRIN710's
+fastboot.I use the correct load address and rom start address and use 0 as the file
+offset(in 64bit).And I also import symbols.txt.But when I press "C" at
+v300_fastboot_start,some codes are reversed.But lots of codes are red.And many codes
+are not decompiled.
+Select "v300_fastboot_start" and use "Create function" in context menu, IDA will register it as
+function and will do more analysis that will find other functions that are called from it. In case
+with functions like boot_bl31 and set_GIC, select range and manually analyze them using
+context menu option.
+OK.So what should I do to decrypt fastboot?Should I upload encrypted fastboot image via usb
+download?And will the decryption function automatically start?
+Author
+map220v commented on Apr 27
+OK.So what should I do to decrypt fastboot?Should I upload encrypted fastboot image via usb
+download?And will the decryption function automatically start?
+Yes, use encrypted fastboot, xloader will verify and decrypt it, and with edited while loop in xloader
+it will continue waiting for commands, so script will be able to use inquiry to download memory
+that contains decrypted fastboot.
+Owner
+hicode002 commented on Apr 27
+OK.So what should I do to decrypt fastboot?Should I upload encrypted fastboot image via
+usb download?And will the decryption function automatically start?
+Yes, use encrypted fastboot, xloader will verify and decrypt it, and with edited while loop in
+xloader it will continue waiting for commands, so script will be able to use inquiry to download
+memory that contains decrypted fastboot.
+So xloader will recognize whether the uploaded fastboot image is encrypted?
+Author
+NEED HELP ABOUT kirin710_bootrom_exploit by hicode002 ... https://github.com/map220v/kirin710_bootrom_exploit/pull/1
+8 of 25 11/28/25, 2:53 AM
+
+map220v commented on Apr 27
+So xloader will recognize whether the uploaded fastboot image is encrypted?
+It will, xloader's verification function always performs decryption of fastboot image.
+Owner
+hicode002 commented on Apr 29 •
+OK.I have tried your method .Load xloader-orig.img as ARM-little endian and 32-bit
+mode.Both of the loading address and start address are 0x22000.The file offset=0x0.Then
+when I press "C" at line 0x2316c,IDA does not recognize these codes and gives me make
+code failed.
+IDA doesn't automatically detect this function, you need to select 0x2316c-0x235C3(first
+analyzed function starts after) and use "Analyze selected area" in context menu, then IDA will
+find this function.
+And Kirin 710A is completely different from Kirin710(xloader diffs a lot).So maybe 0x49BC8
+is not fit for it.I want to know how do you find the address?
+0x49bfc is a start of bootrom stack(
+reference), to find needed LR reg address I just tried each
+addr after 0x49BD4(0x49BD0, 0x49BCC, etc) untill reached 0x49BC8 where bootrom stopped
+crashing or failing to check xloader signature.
+And I see that you use kirin710 eng xloader.But for kirin710A,I don't have eng xloader.So
+maybe I need to patch the download address and length check?
+Latest commit uses original(from EMUI 9.1.0) xloader.img with signature zeroed(just in case if
+something checks/uses anti rollback byte) and bootloader.img verification removed(compare in
+bin diff tools with xloader-orig.img), also I didn't patched inquiry command in it.
+When I start trying on kirin710A devices,I met problems.The xloader entry is at 0x2316A.
+So maybe I think I need to send payload as 0x2316B?
+Author
+edited
+NEED HELP ABOUT kirin710_bootrom_exploit by hicode002 ... https://github.com/map220v/kirin710_bootrom_exploit/pull/1
+9 of 25 11/28/25, 2:53 AM
+
+So maybe I think I need to send payload as 0x2316B?
+And When I send 0x2316B at 0x49BC8,0x49BC0 or 0x49BA0,(using head resend exploit),after
+sending tail_cmd(2),the usb connection is freezed and there is no response.
+When I send 0x2316B at 0x49BA8,I even can not send tail_cmd(2)(No response).But the usb
+connection is not freezed,I can send payload again.
+For other address from 0x49B70 to 0x49CC0,I tried each address(4 bits jump),sending 0x2316B,the
+usb connection is well but It can not jump to xloader and is still in bootrom.
+I use C# to rewrite your code.
+So what happened?Should I send 0x2316B?What is the correct sending address?
+map220v commented on Apr 29
+So what happened?Should I send 0x2316B?What is the correct sending address?
+According to bootrom correct address is either 0x23001 or address stored in 0x23018(I got
+0x23154+1 which booted xloader)
+Owner
+NEED HELP ABOUT kirin710_bootrom_exploit by hicode002 ... https://github.com/map220v/kirin710_bootrom_exploit/pull/1
+10 of 25 11/28/25, 2:53 AM
+
+hicode002 commented on Apr 29
+So what happened?Should I send 0x2316B?What is the correct sending address?
+image According to bootrom correct address is either 0x23001 or address stored in 0x23018(I
+got 0x23154+1 which booted xloader)
+I send 0x23155 and 0x23001 to 0x49BC8 0x49BC0 0x49BA0. I tried all combinations.But After
+sending the tail_cmd(2),the usb connection is freezed (no response).I have seen 0x23018 in my
+xloader image,the data at 0x23018 is 0x23154.
+Maybe 0x49BC8 is a wrong address?And maybe the correct payload address is not the times of 4?
+Author
+hicode002 commented on Apr 29
+https://pastebin.com/tcGYuA1r This is the exploit Code.
+This is the ImageFlasher Code.https://pastebin.com/AJjyXT56
+Author
+starthyl commented on May 5 • edited
+NEED HELP ABOUT kirin710_bootrom_exploit by hicode002 ... https://github.com/map220v/kirin710_bootrom_exploit/pull/1
+11 of 25 11/28/25, 2:53 AM
+
+关于漏洞利用中的地址，0x49BC8确实包含download_xloader函数的返回地址，我返回
+0x2316C（+1），因为那是 xloader 入口点所在的位置，0x22000不包含任何代码图像要在
+ ida
+中加载原始 xloader（带有证书），您需要选择“ARM Little-endian”并使用0x22000作为“ROM
+起始地址”和“加载地址”要删除 xloader 的签名检查，你只需要 nop 这个函数调用和 while 循
+环。图像 图像
+关于修补后的 inquiry 命令，0x30924开始处理0xCD命令，这部分修补了这个处理程序，将
+fastboot（它的地址会存储在 “a1 + 0x3DB” 中，也就是 USB buffer+4）到 xloader 的 USB
+buffer（a1 + 0x3D8），然后它会和发送大小改为 1024 字节的 sub_314F8一起发送。图像
+fastboot 地址在主 cpu 中0x3C000000，使用方式与在 ida 中加载 xloader 时相同，你可以忽略
+fastboot 中的 “MAGIC header”。
+如果麒麟 710A 可以从 710 加载 xloader 和 uce，并且由于某种原因 head resend 漏洞不起作
+用，那么请尝试恢复此提交 bc246cd，因为上次我再次使用漏洞时，它仅在我从 eMMC 中删除
+xloader 时
+Is there any way to prevent him from deleting the x loader in EMMC? The new version of the
+vulnerability also applies, which I think is very interesting. To use the new version of the
+vulnerability, you must first erase the x loader in the font EMMC, but you need to erase the x loader
+in the EMMC first, but you need to unlock it first.But if we use vulnerabilities that were changed
+earlier in the context of x loader, the new version of vulnerabilities is meaningless
+hicode002 commented on May 5
+About addresses in exploit, 0x49BC8 indeed contains return address for download_xloader
+function, and I return to 0x2316C(+1) because that's where xloader entry point is located and
+0x22000 doesn't contain any code image To load original xloader(with cert) in ida you need to
+select "ARM Little-endian" and use 0x22000 as "ROM start address" and "Loading address" To
+remove xloader's signature check you only need to nop this function call and while loop. image
+image
+About patched inquiry command, 0x30924 is a start of 0xCD command handling, this part
+patches this handler to copy fastboot(it's address will be stored in "a1 + 0x3DB" which is usb
+buffer+4) to xloader's usb buffer(a1 + 0x3D8) and then it will be sent with sub_314F8 that had
+it's send size changed to 1024 bytes. image
+Fastboot address is 0x3C000000 in main cpu's use it same way as when loading xloader in ida,
+and you can ignore "MAGIC header" in fastboot.
+If Kirin 710A can load xloader and uce from 710 and head resend exploit doesn't work for
+some reason then try reverting this commit bc246cd, because with that commit last time I
+used exploit again it only worked when I erased xloader from eMMC.
+@map220v Hey,I need clarify something about kirin710A.The initial version of Kirin 710A is
+EMUI10(Android10).So xloader is patched.They add address and length check ,which means you
+can not write at any address on xloader directly.And the xloader function's start address is
+0x2316A.And I think there is no reason that the head resend exploit does not work.You sent
+Author
+NEED HELP ABOUT kirin710_bootrom_exploit by hicode002 ... https://github.com/map220v/kirin710_bootrom_exploit/pull/1
+12 of 25 11/28/25, 2:53 AM
+
+0x2316A.And I think there is no reason that the head resend exploit does not work.You sent
+0x2316D at first.But you also say 0x23155 or 0x23001 is the load address in bootrom.So which one
+actually works(lead you to go to xloader stage)?And why you need to add 1 to the actual address?
+map220v commented on May 5
+About addresses in exploit, 0x49BC8 indeed contains return address for
+download_xloader function, and I return to 0x2316C(+1) because that's where xloader
+entry point is located and 0x22000 doesn't contain any code image To load original
+xloader(with cert) in ida you need to select "ARM Little-endian" and use 0x22000 as "ROM
+start address" and "Loading address" To remove xloader's signature check you only need
+to nop this function call and while loop. image image
+About patched inquiry command, 0x30924 is a start of 0xCD command handling, this part
+patches this handler to copy fastboot(it's address will be stored in "a1 + 0x3DB" which is
+usb buffer+4) to xloader's usb buffer(a1 + 0x3D8) and then it will be sent with sub_314F8
+that had it's send size changed to 1024 bytes. image
+Fastboot address is 0x3C000000 in main cpu's use it same way as when loading xloader in
+ida, and you can ignore "MAGIC header" in fastboot.
+If Kirin 710A can load xloader and uce from 710 and head resend exploit doesn't work for
+some reason then try reverting this commit bc246cd, because with that commit last time I
+used exploit again it only worked when I erased xloader from eMMC.
+@map220v Hey,I need clarify something about kirin710A.The initial version of Kirin 710A is
+EMUI10(Android10).So xloader is patched.They add address and length check ,which means
+you can not write at any address on xloader directly.And the xloader function's start address is
+0x2316A.And I think there is no reason that the head resend exploit does not work.You sent
+0x2316D at first.But you also say 0x23155 or 0x23001 is the load address in bootrom.So which
+one actually works(lead you to go to xloader stage)?And why you need to add 1 to the actual
+address?
+0x23155 is the correct one that bootrom actually uses, 0x2316D is the one that I found and used
+before finding that bootrom function. 1 is added to each function jump because according to
+armv7-m manual, BIT0 must be set to 1 for addresses that are written to PC register using
+instructions like BX, BLX, LDR and POP, because EPSR.T will be set to value from BIT0 and EPSR.T
+must always be 1 for armv7-m.
+Owner
+hicode002 commented on May 5 •
+About addresses in exploit, 0x49BC8 indeed contains return address for
+download_xloader function, and I return to 0x2316C(+1) because that's where
+xloader entry point is located and 0x22000 doesn't contain any code image To load
+original xloader(with cert) in ida you need to select "ARM Little-endian" and use
+0x22000 as "ROM start address" and "Loading address" To remove xloader's
+Author
+edited
+NEED HELP ABOUT kirin710_bootrom_exploit by hicode002 ... https://github.com/map220v/kirin710_bootrom_exploit/pull/1
+13 of 25 11/28/25, 2:53 AM
+
+0x22000 as "ROM start address" and "Loading address" To remove xloader's
+signature check you only need to nop this function call and while loop. image image
+About patched inquiry command, 0x30924 is a start of 0xCD command handling, this
+part patches this handler to copy fastboot(it's address will be stored in "a1 + 0x3DB"
+which is usb buffer+4) to xloader's usb buffer(a1 + 0x3D8) and then it will be sent
+with sub_314F8 that had it's send size changed to 1024 bytes. image
+Fastboot address is 0x3C000000 in main cpu's use it same way as when loading
+xloader in ida, and you can ignore "MAGIC header" in fastboot.
+If Kirin 710A can load xloader and uce from 710 and head resend exploit doesn't
+work for some reason then try reverting this commit bc246cd, because with that
+commit last time I used exploit again it only worked when I erased xloader from
+eMMC.
+@map220v Hey,I need clarify something about kirin710A.The initial version of Kirin 710A
+is EMUI10(Android10).So xloader is patched.They add address and length check ,which
+means you can not write at any address on xloader directly.And the xloader function's
+start address is 0x2316A.And I think there is no reason that the head resend exploit does
+not work.You sent 0x2316D at first.But you also say 0x23155 or 0x23001 is the load
+address in bootrom.So which one actually works(lead you to go to xloader stage)?And
+why you need to add 1 to the actual address?
+0x23155 is the correct one that bootrom actually uses, 0x2316D is the one that I found and
+used before finding that bootrom function. 1 is added to each function jump because
+according to armv7-m manual, BIT0 must be set to 1 for addresses that are written to PC
+register using instructions like BX, BLX, LDR and POP, because EPSR.T will be set to value from
+BIT0 and EPSR.T must always be 1 for armv7-m.
+So now you can use this exploit without erasing xloader from emmc?
+hicode002 commented on May 5 •
+About addresses in exploit, 0x49BC8 indeed contains return address for
+download_xloader function, and I return to 0x2316C(+1) because that's where
+xloader entry point is located and 0x22000 doesn't contain any code 
+图像 To load
+original xloader(with cert) in ida you need to select "ARM Little-endian" and use
+0x22000 as "ROM start address" and "Loading address" To remove xloader's
+signature check you only need to nop this function call and while loop. 图像 图像
+About patched inquiry command, 0x30924 is a start of 0xCD command handling, this
+part patches this handler to copy fastboot(it's address will be stored in "a1 + 0x3DB"
+which is usb buffer+4) to xloader's usb buffer(a1 + 0x3D8) and then it will be sent
+with sub_314F8 that had it's send size changed to 1024 bytes. 图像
+Fastboot address is 0x3C000000 in main cpu's use it same way as when loading
+xloader in ida, and you can ignore "MAGIC header" in fastboot.
+If Kirin 710A can load xloader and uce from 710 and head resend exploit doesn't
+work for some reason then try reverting this commit bc246cd, because with that
+commit last time I used exploit again it only worked when I erased xloader from
+Author
+edited
+NEED HELP ABOUT kirin710_bootrom_exploit by hicode002 ... https://github.com/map220v/kirin710_bootrom_exploit/pull/1
+14 of 25 11/28/25, 2:53 AM
+
+commit last time I used exploit again it only worked when I erased xloader from
+eMMC.
+@map220v Hey,I need clarify something about kirin710A.The initial version of Kirin 710A
+is EMUI10(Android10).So xloader is patched.They add address and length check ,which
+means you can not write at any address on xloader directly.And the xloader function's
+start address is 0x2316A.And I think there is no reason that the head resend exploit does
+not work.You sent 0x2316D at first.But you also say 0x23155 or 0x23001 is the load
+address in bootrom.So which one actually works(lead you to go to xloader stage)?And
+why you need to add 1 to the actual address?
+0x23155 is the correct one that bootrom actually uses, 0x2316D is the one that I found and
+used before finding that bootrom function. 1 is added to each function jump because
+according to armv7-m manual, BIT0 must be set to 1 for addresses that are written to PC
+register using instructions like BX, BLX, LDR and POP, because EPSR.T will be set to value from
+BIT0 and EPSR.T must always be 1 for armv7-m.
+@map220v And another question is how you dump the bootrom code?Do you use fastboot dump
+commands?Or use xloader inquiry command?
+map220v commented on May 5
+So now you can use this exploit without erasing xloader from emmc?
+No it gets stuck after jump to xloader, if xloader is running then I will try to debug this issue.
+@map220v And another question is how you dump the bootrom code?Do you use fastboot
+dump commands?Or use xloader inquiry command?
+Using patched inquiry dump 0x0 - 0x10000, bootrom code will be right at start.
+Owner
+map220v commented on May 5
+So now you can use this exploit without erasing xloader from emmc?
+I fixed this issue now in this commit f8998dd . Issue was caused by some IP blocks not being
+powered if skiping verification in bootrom. With erased xloader it worked because bootrom was
+running verification for zeroed xloader in emmc and then starting usb download, so for testpoint
+the same needs to be done to make xloader boot.
+Owner
+hicode002 commented on May 5 
+Author
+NEED HELP ABOUT kirin710_bootrom_exploit by hicode002 ... https://github.com/map220v/kirin710_bootrom_exploit/pull/1
+15 of 25 11/28/25, 2:53 AM
+
+So now you can use this exploit without erasing xloader from emmc?
+I fixed this issue now in this commit 
+f8998dd. Issue was caused by some IP blocks not being
+powered if skiping verification in bootrom. With erased xloader it worked because bootrom
+was running verification for zeroed xloader in emmc and then starting usb download, so for
+testpoint the same needs to be done to make xloader boot.
+OK,I will try now.Do you get uart output?(Or how do you get boot logs?)How do you get it?(using
+special usb cables or just connect with the testpoints?)Because for some huawei devices,I saw they
+use usb-uart switch that I don;t know how to use it.
+map220v commented on May 5
+OK,I will try now.Do you get uart output?(Or how do you get boot logs?)How do you get it?
+(using special usb cables or just connect with the testpoints?)Because for some huawei
+devices,I saw they use usb-uart switch that I don;t know how to use it.
+No I don't use debug serial connection testpoints, I can only see that xloader now accepts usb
+commands and can download uce and fastboot.
+Owner
+hicode002 commented on May 5
+OK,I will try now.Do you get uart output?(Or how do you get boot logs?)How do you get it?
+(using special usb cables or just connect with the testpoints?)Because for some huawei
+devices,I saw they use usb-uart switch that I don;t know how to use it.
+No I don't use debug serial connection testpoints, I can only see that xloader now accepts usb
+commands and can download uce and fastboot.
+Ok,I have tried your latest commit!It works with xloader extracted from ota update!But I find uce
+image in xloader.img extracted from ota update,it follows xloader image.But after sending uce,it
+does not accept this image and resets.(maybe signature verify fails).I think maybe I don not get the
+correct uce image?I need to know how to extract it from ota update package?
+Author
+map220v commented on May 5
+OK,I will try now.Do you get uart output?(Or how do you get boot logs?)How do you
+get it?(using special usb cables or just connect with the testpoints?)Because for some
+huawei devices,I saw they use usb-uart switch that I don;t know how to use it.
+No I don't use debug serial connection testpoints, I can only see that xloader now accepts
+usb commands and can download uce and fastboot.
+Owner
+NEED HELP ABOUT kirin710_bootrom_exploit by hicode002 ... https://github.com/map220v/kirin710_bootrom_exploit/pull/1
+16 of 25 11/28/25, 2:53 AM
+
+usb commands and can download uce and fastboot.
+Ok,I have tried your latest commit!It works with xloader extracted from ota update!But I find
+uce image in xloader.img extracted from ota update,it follows xloader image.But after sending
+uce,it does not accept this image and resets.(maybe signature verify fails).I think maybe I don
+not get the correct uce image?I need to know how to extract it from ota update package?
+In xloader.img that I have uce starts at 0x25000 file offset, copying it from there worked for me.
+hicode002 commented on May 6
+OK,I will try now.Do you get uart output?(Or how do you get boot logs?)How do
+you get it?(using special usb cables or just connect with the testpoints?)Because
+for some huawei devices,I saw they use usb-uart switch that I don;t know how to
+use it.
+No I don't use debug serial connection testpoints, I can only see that xloader now
+accepts usb commands and can download uce and fastboot.
+Ok,I have tried your latest commit!It works with xloader extracted from ota update!But I
+find uce image in xloader.img extracted from ota update,it follows xloader image.But after
+sending uce,it does not accept this image and resets.(maybe signature verify fails).I think
+maybe I don not get the correct uce image?I need to know how to extract it from ota
+update package?
+In xloader.img that I have uce starts at 0x25000 file offset, copying it from there worked for
+me. image
+Author
+NEED HELP ABOUT kirin710_bootrom_exploit by hicode002 ... https://github.com/map220v/kirin710_bootrom_exploit/pull/1
+17 of 25 11/28/25, 2:53 AM
+
+@map220v I have decrypted the fastboot image for Kirin710A. But I can not find function symbol
+table in the image.I just get a lot of FF after the fastboot commands ends.How do you get the
+function symbol table?(just using the decrypting method?)
+map220v commented on May 6
+OK,I will try now.Do you get uart output?(Or how do you get boot
+logs?)How do you get it?(using special usb cables or just connect with the
+testpoints?)Because for some huawei devices,I saw they use usb-uart
+switch that I don;t know how to use it.
+No I don't use debug serial connection testpoints, I can only see that xloader
+now accepts usb commands and can download uce and fastboot.
+Ok,I have tried your latest commit!It works with xloader extracted from ota update!
+But I find uce image in xloader.img extracted from ota update,it follows xloader
+image.But after sending uce,it does not accept this image and resets.(maybe
+signature verify fails).I think maybe I don not get the correct uce image?I need to
+know how to extract it from ota update package?
+In xloader.img that I have uce starts at 0x25000 file offset, copying it from there worked
+for me. image
+@map220v I have decrypted the fastboot image for Kirin710A. But I can not find function
+symbol table in the image.I just get a lot of FF after the fastboot commands ends.How do you
+get the function symbol table?(just using the decrypting method?)
+It was at the end of decrypted fastboot.img, if it's not there then Huawei now strips them from
+fastboot.img
+Owner
+hicode002 commented on May 6
+OK,I will try now.Do you get uart output?(Or how do you get boot
+logs?)How do you get it?(using special usb cables or just connect with
+the testpoints?)Because for some huawei devices,I saw they use usb-
+uart switch that I don;t know how to use it.
+No I don't use debug serial connection testpoints, I can only see that
+xloader now accepts usb commands and can download uce and fastboot.
+Ok,I have tried your latest commit!It works with xloader extracted from ota
+update!But I find uce image in xloader.img extracted from ota update,it follows
+xloader image.But after sending uce,it does not accept this image and resets.
+Author
+NEED HELP ABOUT kirin710_bootrom_exploit by hicode002 ... https://github.com/map220v/kirin710_bootrom_exploit/pull/1
+18 of 25 11/28/25, 2:53 AM
+
+xloader image.But after sending uce,it does not accept this image and resets.
+(maybe signature verify fails).I think maybe I don not get the correct uce image?
+I need to know how to extract it from ota update package?
+In xloader.img that I have uce starts at 0x25000 file offset, copying it from there
+worked for me. image
+@map220v I have decrypted the fastboot image for Kirin710A. But I can not find function
+symbol table in the image.I just get a lot of FF after the fastboot commands ends.How do
+you get the function symbol table?(just using the decrypting method?)
+It was at the end of decrypted fastboot.img, if it's not there then Huawei now strips them from
+fastboot.img
+Thanks for your help!Now I can enter the patched fastboot with fblock unlocked.Do you have any
+method unlocking the bootloader of Kirin710 permanently?I view the unlock command,it seems
+writing symbols to oeminfo.But I do not know how to use it.When I use fastboot oem unlock ,it
+gives me unknown command
+map220v commented on May 6
+OK,I will try now.Do you get uart output?(Or how do you get boot
+logs?)How do you get it?(using special usb cables or just connect
+with the testpoints?)Because for some huawei devices,I saw they
+use usb-uart switch that I don;t know how to use it.
+No I don't use debug serial connection testpoints, I can only see that
+xloader now accepts usb commands and can download uce and
+fastboot.
+Ok,I have tried your latest commit!It works with xloader extracted from ota
+update!But I find uce image in xloader.img extracted from ota update,it
+follows xloader image.But after sending uce,it does not accept this image
+and resets.(maybe signature verify fails).I think maybe I don not get the
+correct uce image?I need to know how to extract it from ota update
+package?
+In xloader.img that I have uce starts at 0x25000 file offset, copying it from there
+worked for me. image
+@map220v I have decrypted the fastboot image for Kirin710A. But I can not find
+function symbol table in the image.I just get a lot of FF after the fastboot commands
+ends.How do you get the function symbol table?(just using the decrypting method?)
+It was at the end of decrypted fastboot.img, if it's not there then Huawei now strips them
+from fastboot.img
+Owner
+NEED HELP ABOUT kirin710_bootrom_exploit by hicode002 ... https://github.com/map220v/kirin710_bootrom_exploit/pull/1
+19 of 25 11/28/25, 2:53 AM
+
+Thanks for your help!Now I can enter the patched fastboot with fblock unlocked.Do you have
+any method unlocking the bootloader of Kirin710 permanently?I view the unlock command,it
+seems writing symbols to oeminfo.But I do not know how to use it.When I use fastboot oem
+unlock ,it gives me unknown command
+"oem unlock" seem to be removed in EMUI 10 and higher, so the only way is to call
+oeminfo_lock_stat_write function with 1 as arg directly.
+Iceows commented on May 6
+Hi. Do you have an email address or account? I have a Chinese friend who is working on unlocking
+Kirins who had a question. He doesn't want to erase the xloader every time he uses it, it would kill
+my battery.
+hicode002 commented on May 7
+Hi. Do you have an email address or account? I have a Chinese friend who is working on
+unlocking Kirins who had a question. He doesn't want to erase the xloader every time he uses
+it, it would kill my battery.
+Use testpoint method is the most safe choice.
+Author
+hicode002 commented on May 7
+OK,I will try now.Do you get uart output?(Or how do you get
+boot logs?)How do you get it?(using special usb cables or just
+connect with the testpoints?)Because for some huawei
+devices,I saw they use usb-uart switch that I don;t know how
+to use it.
+No I don't use debug serial connection testpoints, I can only see
+that xloader now accepts usb commands and can download uce
+and fastboot.
+Ok,I have tried your latest commit!It works with xloader extracted from
+ota update!But I find uce image in xloader.img extracted from ota
+update,it follows xloader image.But after sending uce,it does not
+accept this image and resets.(maybe signature verify fails).I think
+maybe I don not get the correct uce image?I need to know how to
+extract it from ota update package?
+In xloader.img that I have uce starts at 0x25000 file offset, copying it from
+Author
+NEED HELP ABOUT kirin710_bootrom_exploit by hicode002 ... https://github.com/map220v/kirin710_bootrom_exploit/pull/1
+20 of 25 11/28/25, 2:53 AM
+
+In xloader.img that I have uce starts at 0x25000 file offset, copying it from
+there worked for me. image
+@map220v I have decrypted the fastboot image for Kirin710A. But I can not find
+function symbol table in the image.I just get a lot of FF after the fastboot
+commands ends.How do you get the function symbol table?(just using the
+decrypting method?)
+It was at the end of decrypted fastboot.img, if it's not there then Huawei now strips
+them from fastboot.img
+Thanks for your help!Now I can enter the patched fastboot with fblock unlocked.Do you
+have any method unlocking the bootloader of Kirin710 permanently?I view the unlock
+command,it seems writing symbols to oeminfo.But I do not know how to use it.When I
+use fastboot oem unlock ,it gives me unknown command
+"oem unlock" seem to be removed in EMUI 10 and higher, so the only way is to call
+oeminfo_lock_stat_write function with 1 as arg directly.
+@map220v Hey,I found some questions about the fblock patch.Although now when I run fastboot
+oem lock-state info,it gives me FBLOCK UNLOCKED and USERLOCK LOCKED.But when I run fastboot
+oem dump/read/write/onchiprom_download or fastboot getvar nve or fastboot oem hwdog certify
+set 0,it gives me invalid command response(instead of command not allowed).So now the patched
+fastboot has no difference between origin fastboot.But when I search function names in ida,it
+shows these functions exists.What's the problem?Is it possible that fblock patch is not enough?
+hicode002 commented on May 7
+@map220v Another thing is that have you tried using patched fastboot to boot to kernel?just use
+fastboot oem boot command(I use it,but it just reboots and show me verification error)(I want to
+load a temporary kernel without unlocking permanently)?How to upload kernel image from usb
+instead of using it stored in ufs.(fastboot boot kernel.img not work)(invalid command)
+Author
+hicode002 commented on May 7
+OK,I will try now.Do you get uart output?(Or how do you get
+boot logs?)How do you get it?(using special usb cables or just
+connect with the testpoints?)Because for some huawei
+devices,I saw they use usb-uart switch that I don;t know how
+to use it.
+No I don't use debug serial connection testpoints, I can only see
+that xloader now accepts usb commands and can download uce
+and fastboot.
+Author
+NEED HELP ABOUT kirin710_bootrom_exploit by hicode002 ... https://github.com/map220v/kirin710_bootrom_exploit/pull/1
+21 of 25 11/28/25, 2:53 AM
+
+and fastboot.
+Ok,I have tried your latest commit!It works with xloader extracted from
+ota update!But I find uce image in xloader.img extracted from ota
+update,it follows xloader image.But after sending uce,it does not
+accept this image and resets.(maybe signature verify fails).I think
+maybe I don not get the correct uce image?I need to know how to
+extract it from ota update package?
+In xloader.img that I have uce starts at 0x25000 file offset, copying it from
+there worked for me. image
+@map220v I have decrypted the fastboot image for Kirin710A. But I can not find
+function symbol table in the image.I just get a lot of FF after the fastboot
+commands ends.How do you get the function symbol table?(just using the
+decrypting method?)
+It was at the end of decrypted fastboot.img, if it's not there then Huawei now strips
+them from fastboot.img
+Thanks for your help!Now I can enter the patched fastboot with fblock unlocked.Do you
+have any method unlocking the bootloader of Kirin710 permanently?I view the unlock
+command,it seems writing symbols to oeminfo.But I do not know how to use it.When I
+use fastboot oem unlock ,it gives me unknown command
+"oem unlock" seem to be removed in EMUI 10 and higher, so the only way is to call
+oeminfo_lock_stat_write function with 1 as arg directly.
+And there is no oeminfo_lock_stat write function in EMUI10.And userlock is set to loacked writting
+in fastboot code.(So it is impossible to unlock bootloader permanently without finding a signed
+patched fastboot or factory fastboot)
+map220v commented on May 7
+@map220v Hey,I found some questions about the fblock patch.Although now when I run
+fastboot oem lock-state info,it gives me FBLOCK UNLOCKED and USERLOCK LOCKED.But when
+I run fastboot oem dump/read/write/onchiprom_download or fastboot getvar nve or fastboot
+oem hwdog certify set 0,it gives me invalid command response(instead of command not
+allowed).So now the patched fastboot has no difference between origin fastboot.But when I
+search function names in ida,it shows these functions exists.What's the problem?Is it possible
+that fblock patch is not enough?
+I remeber some commands having only userlock check instead of fblock, so userlock must be
+patched too.
+@map220v Another thing is that have you tried using patched fastboot to boot to kernel?just
+use fastboot oem boot command(I use it,but it just reboots and show me verification error)(I
+Owner
+NEED HELP ABOUT kirin710_bootrom_exploit by hicode002 ... https://github.com/map220v/kirin710_bootrom_exploit/pull/1
+22 of 25 11/28/25, 2:53 AM
+
+use fastboot oem boot command(I use it,but it just reboots and show me verification error)(I
+want to load a temporary kernel without unlocking permanently)?How to upload kernel image
+from usb instead of using it stored in ufs.(fastboot boot kernel.img not work)(invalid
+command)
+I tested "fastboot oem boot", it starts booting stock kernel, but then after 10 sec kernel crashes for
+some reason and reboots device, so it can be used to boot custom downstream kernel if issue that
+crashes kernel is fixed. "fastboot boot" isn't supported in old fastboot either, so the only way to
+boot anything is flashing to kernel partition and using "oem boot"
+Iceows commented on May 8
+Kirin kernels use DTS files that are separate in a specific partition. So it is likely that the crash comes
+from this problem.
+hicode002 commented on May 12
+@map220v Hey,I found some questions about the fblock patch.Although now when I run
+fastboot oem lock-state info,it gives me FBLOCK UNLOCKED and USERLOCK LOCKED.But
+when I run fastboot oem dump/read/write/onchiprom_download or fastboot getvar nve
+or fastboot oem hwdog certify set 0,it gives me invalid command response(instead of
+command not allowed).So now the patched fastboot has no difference between origin
+fastboot.But when I search function names in ida,it shows these functions exists.What's
+the problem?Is it possible that fblock patch is not enough?
+I remeber some commands having only userlock check instead of fblock, so userlock must be
+patched too.
+@map220v Another thing is that have you tried using patched fastboot to boot to kernel?
+just use fastboot oem boot command(I use it,but it just reboots and show me verification
+error)(I want to load a temporary kernel without unlocking permanently)?How to upload
+kernel image from usb instead of using it stored in ufs.(fastboot boot kernel.img not
+work)(invalid command)
+I tested "fastboot oem boot", it starts booting stock kernel, but then after 10 sec kernel
+crashes for some reason and reboots device, so it can be used to boot custom downstream
+kernel if issue that crashes kernel is fixed. "fastboot boot" isn't supported in old fastboot either,
+so the only way to boot anything is flashing to kernel partition and using "oem boot"
+You need to enable dts_init function by patching.In download mode,the dts is not loaded and the
+screen will not turn on.But now with a loaded dts,I can not use fastboot oem boot ,too.It will give
+me an immediately reboot.
+Author
+NEED HELP ABOUT kirin710_bootrom_exploit by hicode002 ... https://github.com/map220v/kirin710_bootrom_exploit/pull/1
+23 of 25 11/28/25, 2:53 AM
+
+wutaijieing commented on Sep 28 •
+My lio KIRI990 suddenly can't load the xloader for EMUI10. Has it triggered anti-rollback? Are there
+any methods to bypass this restriction?
+edited
+3nour6-pixel commented last week
+Hey @map220v
+Massive congrats on the Kirin 710 discovery and your repo. Seriously impressive work.
+I'm deep in the research on the next logical step and I was hoping you could clear up a key
+bottleneck for me:
+My ultimate goal is to figure out the methodology for an offline brute-force decryption of the
+userdata partition.
+My question is specifically about the pivot point: Since your BootROM exploit gets us EL3 execution
+Monitor Mode, what is the actual prerequisite to get those keys? I need to understand how we
+move from EL3 control to key extraction.
+Specifically, how can the EL3 Payload access and copy or leak the Encrypted CE Master Key Blob
+from the TrustZone's Secure Memory? Also, do you have the Physical Address for that Encrypted CE
+Key structure, or what is the most efficient Reverse Engineering methodology used to pin down
+that address?
+3nour6-pixel commented last week
+Hey @hicode002
+Can you help me with getting the decryption key to decrypt userdata?
+Assignees
+No one assigned
+Labels
+None yet
+Projects
+Reviewers
+No reviews
+NEED HELP ABOUT kirin710_bootrom_exploit by hicode002 ... https://github.com/map220v/kirin710_bootrom_exploit/pull/1
+24 of 25 11/28/25, 2:53 AM
+
+None yet
+Milestone
+No milestone
+Development
+Successfully merging this pull request may close these issues.
+None yet
+6 participants
+NEED HELP ABOUT kirin710_bootrom_exploit by hicode002 ... https://github.com/map220v/kirin710_bootrom_exploit/pull/1
+25 of 25 11/28/25, 2:53 AM
