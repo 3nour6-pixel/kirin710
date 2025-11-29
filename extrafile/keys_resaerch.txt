@@ -1,0 +1,608 @@
+لﯾﻠﺣﺗﻟاﻲﺋﺎﻧﺟﻟاّقﻣﻌﻣﻟاﺔﯾﻣوارزﺧﻟرﯾﻔﺷﺗحﺎﺗﻔﻣ CE
+Master Key ﻲﻓتﺎﺟﻟﺎﻌﻣ Kirin 710: ﺔﺳدراﺔﻟﺎﺣ
+فﺗﺎﮭﻟ Huawei JKM-LX1
+1. :ﺔﻣدﻘﻣﻟاﺔﯾﻧﺑﻟاﺔﯾرﯾﻔﺷﺗﻟاةدﻘﻌﻣﻟاﻲﻓةزﮭﺟأيواوھﺔﺛﯾدﺣﻟا
+ﻲﻓمﻟﺎﻋنﻣأتﺎﻣوﻠﻌﻣﻟا،ﻲﺋﺎﻧﺟﻟا
+ ً
+داﯾدﺣﺗوﺎﻣﯾﻓقﻠﻌﺗﯾﺔﻣظﻧﺄﺑد،ﯾدروﻧألﺛﻣﯾراجﺧﺗﺳاكﻓورﯾﻔﺷﺗتﺎﻧﺎﯾﺑدمﺧﺗﺳﻣﻟا (Userdata)
+ ً
+ ﺎﯾدﺣﺗ
+ ً
+ﺎﯾﻧﻘﺗ
+،ًﻼﺋﺎھﺔﺻﺎﺧﺎﻣدﻧﻋرنﺗﻘﯾرﻣﻷاتﺎﺟﻟﺎﻌﻣﺑﺔﺻﺻﺧﻣلﺛﻣﺔﻠﺋﺎﻋ HiSilicon Kirin ﻲﺗﻟاﺎﮭﺟﺗﻧﺗﺔﻛرﺷ.واويھنإلاؤﺳﻟاحورطﻣﻟا
+لوﺣﺔﯾﻣزراوﺧﻟاﺔﻘﯾﻗدﻟا (The Exact Algorithm) ﻲﺗﻟاموﻘﺗرﯾﻔﺷﺗﺑكﻓورﯾﻔﺷﺗحﺎﺗﻔﻣﻟاﻲﺳﯾﺋرﻟارﯾﻔﺷﺗﻟتﺎﻧﺎﯾﺑﻟا (Credential
+Encrypted - CE Master Key) لﺧادمﺳﻗ userdata فﺗﺎﮭﻟ Huawei Y9 2019 ( فورﻌﻣﻟا
+ ً
+ﺎﯾﻧﻘﺗ
+ـﺑ JKM-LX1) يذﻟاو
+لﻣﻌﯾﺞﻟﺎﻌﻣﺑ Kirin 710، بﻠطﺗﯾصوﻐﻟا
+ ً
+ﺎﻘﯾﻣﻋ
+ﺎﻣﯾﻓوھدﻌﺑأنﻣدرﺟﻣتﻻدﺎﻌﻣﺔﯾﺿﺎﯾر.ﺔﯾﺟﻣرﺑنﺣﻧﺎﻧھددﺻﺑلﻣﺎﻌﺗﻟاﻊﻣمﺎظﻧنﯾﺟھ
+ﻊﻣﺟﯾنﯾﺑرﯾﻔﺷﺗﻟا"مﺋﺎﻘﻟاﻰﻠﻋتﺎﻔﻠﻣﻟا " (File-Based Encryption - FBE) تﺎﯾﻟآورﯾﻔﺷﺗﻟا"لﻣﺎﻛﻟاصرﻘﻠﻟ " (Full-Disk
+Encryption - FDE) ﺔﻣﯾدﻘﻟاﺔﻣدﺧﺗﺳﻣﻟاةرادﻹ،ﺢﯾﺗﺎﻔﻣﻟالﻛوكﻟذطوﺑرﻣ
+ ً
+ﺎﯾدﺎﺗﻋ
+ﺔﺋﯾﺑﺑذﯾﻔﻧﺗﺔﻗوﺛوﻣ (Trusted Execution
+Environment - TEE) فرﻌﺗـﺑ TrustedCore.
+إندفﮭﻟانﻣذاھرﯾرﻘﺗﻟاﻲﺛﺣﺑﻟاوھكﯾﻛﻔﺗذهھﺔﯾﻠﻣﻌﻟادةﻘﻌﻣﻟاﻰﻟإﺎھرﺻﺎﻧﻋ،ﺔﯾﻟوﻷامﯾدﻘﺗوﺔﺑﺎﺟإﺔﻘﯾﻗدقﻓواﺗﺗﻊﻣرﺎﯾﻌﻣ"1+1=2"ذيﻟا
+دهﺷﻧﯾونﺛﺣﺎﺑﻟاونﻘﻘﺣﻣﻟواون،ﯾﺋﺎﻧﺟﻟا
+ ً
+داﯾﻌﺑ
+نﻋتﺎﻣﯾﻣﻌﺗﻟا.ﺔﯾظرﻧﻟاموﻘﻧﺳلﯾﻠﺣﺗﺑﺔﯾﻧﺑتﺎﻧﺎﯾﺑﻟاةدوﺟوﻣﻟاﻲﻓلﯾﯾذﺗرﯾﻔﺷﺗﻟا (Crypto
+Footer)، حرﺷوﺔﻟادقﺎﻘﺗﺷاﺢﯾﺗﺎﻔﻣﻟا KDF_SCRYPT_KEYMASTER، ﺢﯾﺿوﺗورودﺞﻟﺎﻌﻣ Kirin 710 ﻲﻓﺔﯾﻠﻣﻋﻊﯾﻗوﺗﻟا
+ﻲﻣﻗرﻟاﻲﺗﻟالﻌﺟﺗنﻣكﻓرﯾﻔﺷﺗﻟاجرﺎﺧزﺎﮭﺟﻟا (OOf-chip decryption)
+ ً
+ 
+ارﻣأ
+ ً
+ﻼﯾﺣﺗﺳﻣ
+ ً
+ﺎﯾﺿﺎﯾر
+نودلﻼﻐﺗﺳاتارﻐﺛﻲﻓدﺎﺗﻌﻟا
+.ﮫﺳﻔﻧﺎﻣﻛنﻣﺿﺗﯾﺳرﯾرﻘﺗﻟادوﻛنوﺛﯾﺎﺑ
+ ً
+ﺎﯾﻛﺎﺣﻣ
+،ﺔﯾﻠﻣﻌﻠﻟﺢﺿوﯾتﻼﺧدﻣﻟاتﺎﺟرﺧﻣﻟاوﺔﻗدﺑﺔﯾھﺎﻧﺗﻣ .
+1.1 قﺎﯾﺳﻟا:ﻲﻧﻘﺗﻟالﺎﻘﺗﻧﻻانﻣ FDE ﻰﻟإ FBE ﻲﻓﺔﺋﯾﺑيواوھ
+مﮭﻔﻟنﺎﻛﻣ"دوﺟو،"تﻼﺧدﻣﻟابﺟﯾ
+ ً
+ﻻوأ
+مﮭﻓﺔﯾرﺎﻣﻌﻣنﯾزﺧﺗﺢﯾﺗﺎﻔﻣﻟاﻲﻓمﺎظﻧدﯾوردﻧأ
+ ً
+ادﯾدﺣﺗوﻲﻓتارادﺻإ EMUI ﻲﺗﻟالﻣﻌﺗﻰﻠﻋ
+دﯾوردﻧأ8و9ﻲھو)ﺔﻣظﻧﻷاﺔﻌﺋﺎﺷﻟااذﮭﻟ.(فﺗﺎﮭﻟاﻰﻠﻋمﻏرﻟانﻣنأدﯾوردﻧألﻘﺗﻧا
+ ً
+ﺎﯾﻣﺳر
+ﻰﻟإرﯾﻔﺷﺗﻟامﺋﺎﻘﻟاﻰﻠﻋتﺎﻔﻠﻣﻟا (FBE)
+رﯾﻓوﺗﻟةزﯾﻣلﯾﻐﺷﺗﻟارﺷﺎﺑﻣﻟا (Direct Boot)، ﻻإنأﺔﻛرﺷ،يواوھﻲﻓوﺎﮭﯾﻌﺳظﺎﻔﺣﻠﻟﻰﻠﻋﺔﯾﻘﻓاوﺗتﺎﯾﻗرﺗﻟاﺔﯾﺎﻣﺣوﺢﯾﺗﺎﻔﻣ،رﯾﻔﺷﺗﻟا
+تظﻔﺗﺣالﻛﯾﮭﺑلﯾﯾذﺗ"رﯾﻔﺷﺗﻟا " (Crypto Footer) ﻲﻓﺔﯾﺎﮭﻧمﺳﻗ userdata.
+ﻲﻓذاھوذج،ﻣﻧﻟاﻻمﺗﯾرﯾﻔﺷﺗلﻛفﻠﻣحﺎﺗﻔﻣﺑقﺗﺷﻣرةﺷﺎﺑﻣنﻣﺔﻣﻠﻛ.رورﻣﻟا
+ ً
+ﻻدﺑ
+نﻣ،كﻟذمﺗﯾرﯾﻔﺷﺗتﺎﯾوﺗﺣﻣتﺎﻔﻠﻣﻟا (File
+Contents) ءﺎﻣﺳأوتﺎﻔﻠﻣﻟا (File Names) مادﺧﺗﺳﺎﺑﺢﯾﺗﺎﻔﻣﺔﯾﺋاوﺷﻋمﺗﯾﺎھدﯾﻟوﺗلﺧاد.مﺎظﻧﻟا
+1
+هذھﺢﯾﺗﺎﻔﻣﻟاﺔﯾﺋاوﺷﻌﻟامﺗﯾﺎﮭﻧﯾزﺧﺗ
+ﻲﻓنزﺧﻣﺢﯾﺗﺎﻔﻣ (Keystore) ﻲﻛﻟومﺗﯾلوﺻوﻟا،ﺎﮭﯾﻟإبﺟﯾكﻓرﯾﻔﺷﺗاذھنزﺧﻣﻟامادﺧﺗﺳﺎﺑحﺎﺗﻔﻣﻟا"ﻲﺳﯾﺋرﻟا " (CE Master
+Key). اذھحﺎﺗﻔﻣﻟاﻲﺳﯾﺋرﻟاوھ"فدﮭﻟا"يذﻟاﻰﻌﺳﯾمدﺧﺗﺳﻣﻟالوﺻوﻠﻟ،ﮫﯾﻟإوھونزﺧﻣﻟالﻛﺷﺑرﻔﺷﻣلﺧادلﯾﯾذﺗمﺳﻘﻟا (Footer).
+،ﻲﻟﺎﺗﻟﺎﺑونﺈﻓﺔﯾﻣوارزﺧﻟاﻲﺗﻟاثﺣﺑﻧﺎﮭﻧﻋتﺳﯾﻟكﻠﺗﻲﺗﻟارﻔﺷﺗفﻠﻣورﺻﻟاأووﯾدﯾﻔﻟارةﺷﺎﺑﻣﻲﺗﻟوا)نوﻛﺗةدﺎﻋ AES-256-XTS)،
+لﺑﻲھﺔﯾﻣزراوﺧﻟاﻲﺗﻟاﻲﻣﺣﺗحﺎﺗﻔﻣﻟا"يذﻟاﻲﻣﺣﯾ."ﺢﯾﺗﺎﻔﻣﻟاهذھﺔﻘﺑطﻟانﻣدﯾرﺟﺗﻟاﻲھﻲﺗﻟالﻌﺟﺗﺔﯾﻠﻣﻌﻟادﻣﺗﻌﺗلﻛﺷﺑﻲﻠﻛﻰﻠﻋ
+ﺔﻗدﺎﺻﻣمدﺧﺗﺳﻣﻟا (PIN/Pattern/Password) ﻰﻠﻋوﺔﻣﺻﺑدﺎﺗﻌﻟا (Hardware Bound).
+
+1.2 ﺞﻟﺎﻌﻣ Kirin 710 ودور TrustedCore
+رﺑﺗﻌﯾﺞﻟﺎﻌﻣ HiSilicon Kirin 710، ﻲﻧﺑﻣﻟاﺔﯾرﺎﻣﻌﻣﺑ12ر،ﺗﻣوﻧﺎﻧرﺟﺣﺔﯾزاوﻟاﻲﻓذهھﺔﯾﻠﻣﻌﻟا.ﺔﯾﻧﻣﻷايوﺗﺣﯾاذھﺞﻟﺎﻌﻣﻟاﻰﻠﻋﺔﻘطﻧﻣ
+ﺔﻧﻣآ (Secure World) دﻣﺗﻌﺗﻰﻠﻋﺔﯾﻧﻘﺗ ARM TrustZone. لﺧادهذھ،ﺔﻘطﻧﻣﻟالﻐﺷﺗيواوھمﺎظﻧلﯾﻐﺷﺗرﻐﺻﻣنﻣآوﻰﻣﺳﯾ
+TrustedCore.
+2
+ﺎﻣدﻧﻋومﻘﯾدمﺧﺗﺳﻣﻟاﻊﺿوﺑﺔﻣﻠﻛرور،ﻣﻻومﻘﯾمﺎظﻧدﯾدروﻧأذيﻟا)لﻣﻌﯾﻲﻓﺔﻘطﻧﻣﻟارﯾﻏﺔﻧﻣﻵاوأ Normal World) رﯾﻔﺷﺗﺑتﺎﻧﺎﯾﺑﻟا
+.ةرﺷﺎﺑﻣ
+ ً
+ﻻدﺑ
+نﻣ،كﻟذمﺗﯾلﺎﺳرإبﻠطﻰﻟإ TrustedCore رﺑﻋتﺎﻣﯾﻠﻌﺗﺔﺻﺎﺧﺞﻟﺎﻌﻣﻠﻟ (Secure Monitor Calls - SMC).
+موﻘﺗتﺎﻘﯾﺑطﺗﻟاﺔﻗوﺛوﻣﻟا (Trusted Applications - TAs) لﺧاد TrustedCore،
+ ً
+ 
+ادﯾدﺣﺗو
+قﯾﺑطﺗ Keymaster TA، ءارﺟﺈﺑ
+تﺎﯾﻠﻣﻋرﯾﻔﺷﺗﻟاﻊﯾﻗوﺗﻟاومادﺧﺗﺳﺎﺑﺢﯾﺗﺎﻔﻣﺔﻧزﺧﻣﻲﻓةرﻛاذرﯾﻏﺔﻠﺑﺎﻗةءارﻘﻠﻟنﻣلﺑﻗمﺎظﻧ.دﯾوردﻧأ
+3
+اذھﻲﻧﻌﯾنأﺔﯾﻣزراوﺧكﻓرﯾﻔﺷﺗﻟا
+تﺳﯾﻟدرﺟﻣدوﻛﻲﺟﻣرﺑنﻛﻣﯾﮫﻠﯾﻐﺷﺗﻰﻠﻋيأ،بوﺳﺎﺣلﺑﻲھﺔﯾﺟﻣرﺑ"+."دﺎﺗﻋيأﺔﻟوﺎﺣﻣلﯾﺛﻣﺗﻟﺔﯾﻣزراوﺧﻟاﻲﻓدوﻛنوﺛﯾﺎﺑبﺟﯾنأ
+ذﺧﺄﺗﻲﻓرﺎﺑﺗﻋﻻانأكﺎﻧھ
+ ً
+ﺎﻗودﻧﺻ
+""دوﺳأﺔﻟاد)ﻊﯾﻗوﺗﻟا(يدﺎﺗﻌﻟالﺛﻣﯾ
+ ً
+اءزﺟ
+ﻻأزﺟﺗﯾنﻣﺔﻟدﺎﻌﻣﻟاﺔﯾﺿﺎﯾرﻟا .
+2. ﺢﯾرﺷﺗﻟاقﯾﻗدﻟانﺎﻛﻣﻟودﺟو:تﻼﺧدﻣﻟالﯾﯾذﺗرﯾﻔﺷﺗﻟا (Crypto Footer)
+ﺔﺑﺎﺟﻺﻟﻰﻠﻋزءﺟنﺎﻛﻣ"دوﺟو"ﺎﮭﺗﻼﺧدﻣنﻣ،لاؤﺳﻟابﺟﯾنأرظﻧﻧﻰﻟإصرﻘﻟابﻠﺻﻟافﺗﺎﮭﻠﻟ (eMMC/UFS) ﺔطﯾرﺧﻛﺔﯾﺋﺎﻧﺛ
+(Binary Map). ﻊﻘﺗتﺎﻧﺎﯾﺑﻟاﺔﻟوؤﺳﻣﻟانﻋةرادإﺔﯾﻠﻣﻋرﯾﻔﺷﺗﻟاﻲﻓنﺎﻛﻣددﺣﻣ
+ ً
+ادﺟ
+:تﺑﺎﺛورﺧآ16تﯾﺎﺑوﻠﯾﻛنﻣمﺳﻗتﺎﻧﺎﯾﺑمدﺧﺗﺳﻣﻟا
+(userdata partition).
+4
+2.1 ﻊﻗوﻣﻟاﻲﺋﺎﯾزﯾﻔﻟاﻲﻘطﻧﻣﻟوا
+ﻲﻓفﺗﺎھ JKM-LX1، مﺗﯾمﯾﺳﻘﺗرةﻛذاﻟاﺔﯾﻠﺧداﻟاﻰﻟإدةﻋمﺎﺳﻗأ (Partitions). مﺳﻘﻟارﺑﻛﻷاوھ userdata، ذيﻟوالﻣﺣﯾدةﺎﻋ
+رﺎﺳﻣﻟا /dev/block/mmcblk0pXX (ثﯾﺣ XX وھمﻗرمﺳﻘﻟادﻣﺗﻌﯾوﻰﻠﻋططﺧﻣمﯾﺳﻘﺗﻟاصﺎﺧﻟا(زﺎﮭﺟﻟﺎﺑوأرﺎﺳﻣﻟايزﻣرﻟا
+/dev/block/bootdevice/by-name/userdata.
+ولﺻﺣﻠﻟﻰﻠﻋت،ﻼﺧدﻣﻟابﺟﯾراءةﻗرﺧآ16,384تﯾﺎﺑنﻣذاھ.مﺳﻘﻟااذإﺎﻧﺿرﺗﻓانأمﺟﺣمﺳﻘﻟاوھ $S$ ،تﯾﺎﺑنﺈﻓلﯾﯾذﺗﻟاأدﺑﯾدﻧﻋ
+ﺔﺣازﻹا (OOfset) $S - 16384$.
+2.2 ﺔﯾﻠﻛﯾھ crypt_mnt_ftr ( ﺔطﯾرﺧتﻼﺧدﻣﻟا )
+تﺎﻧﺎﯾﺑﻟالﺧداذاھلﯾﯾذﺗﻟاتﺳﯾﻟ،ﺔﯾﺋواﺷﻋلﺑﻊﺑﺗﺗﺔﯾﻠﻛﯾھﺔﯾﺟﻣرﺑﺔﻘﯾﻗدﺔﻐﻠﺑ C رفﻌﺗـﺑ struct crypt_mnt_ftr. ذهھﺔﯾﻠﻛﯾﮭﻟاﻲھ
+ﺔطﯾرﺧ""زﻧﻛﻟاﻲﺗﻟايوﺗﺣﺗﻰﻠﻋﻊﯾﻣﺟتارﯾﻐﺗﻣﻟاﺔﻣزﻼﻟاﺔﻟدﺎﻌﻣﻠﻟ.ﺔﯾﺿﺎﯾرﻟا
+6
+لودﺟﻟاﻲﻟﺎﺗﻟاﺢﺿوﯾﻊﯾزوﺗﻟاقﯾﻗدﻟاتﺎﺗﯾﺎﺑﻠﻟلﺧادهذھ
+ﺔﯾﻠﻛﯾﮭﻟانﺎﻛﻣولﻛلﺧدﻣ :
+ﺔﺣزاﻹا (Offset)
+تﯾﺎﺑﻟﺎﺑ
+مﺳالﻘﺣﻟا (Field
+Name)
+مﺟﺣﻟا فﺻوﻟاﺔﻣﯾﻘﻟواﺔﻌﻗوﺗﻣﻟا ﺔﯾﻣھﻷاﺔﯾﻣوارزﺧﻠﻟ
+0x0000 magic 4 تﯾﺎﺑ 0xD0B5B1C4
+(Little Endian)
+قﻘﺣﺗﻟانﻣأنلﯾﯾذﺗﻟا
+ﺢﻟﺎﺻ.
+0x0004 major_version 2 تﯾﺎﺑ 1 دارﺻإﺔﯾﻧﺑﻟا .
+0x0006 minor_version 2 تﯾﺎﺑ 3 ( دةﺎﻋﻲﻓزةﮭﺟأواويھ ددﺣﯾمﻋد
+
+ﺔﺛﯾدﺣﻟا) KDF_SCRYPT_KEY
+MASTER.
+0x0008 ftr_size 4 تﯾﺎﺑ مﺟﺣﺔﯾﻠﻛﯾﮭﻟا دﻛﺄﺗﻠﻟنﻣراءةﻗتﺎﻧﺎﯾﺑﻟا
+ﺔﻠﻣﺎﻛ.
+0x000C flags 4 تﯾﺎﺑ تﺎﯾرارﯾﻔﺷﺗﻟا ددﺣﺗﺔﻟﺎﺣرﯾﻔﺷﺗﻟا .
+0x0010 keysize 4 تﯾﺎﺑ 16 (128-bit) أو32
+)256 -bit)
+مﺟﺣحﺎﺗﻔﻣﻟاﻲﺳﯾﺋرﻟا .
+0x0060 master_key 48 تﯾﺎﺑ دفﮭﻟا (Ciphertext) حﺎﺗﻔﻣﻟاﻲﺳﯾﺋرﻟارﻔﺷﻣﻟا
+ذيﻟادﯾرﻧﮫﻛﻓ .
+0x0080 salt 16 تﯾﺎﺑ لﺧدﻣﻟاولﻷا (Salt) ﺔﻣﯾﻗﺔﯾﺋواﺷﻋدمﺧﺗﺳﺗﻲﻓ
+ﺔﻟدا Scrypt.
+0x009C kdf_type 1 تﯾﺎﺑ 5
+(KDF_SCRYPT_KEY
+MASTER)
+ددﺣﯾوعﻧﺔﯾﻣوارزﺧﻟا
+ﺔﻣدﺧﺗﺳﻣﻟا.
+0x009D N_factor 1 تﯾﺎﺑ 15 (دةﺎﻋ) لﺧدﻣﻟاﻲﻧﺎﺛﻟا (N): لﻣﺎﻌﻣ
+ﺔﻔﻠﻛﺗﻟا.
+0x009E r_factor 1 تﯾﺎﺑ 3 لﺧدﻣﻟاثﻟﺎﺛﻟا (r): مﺟﺣ
+ﺔﻠﺗﻛﻟا.
+0x009F p_factor 1 تﯾﺎﺑ 1 لﺧدﻣﻟاﻊﺑراﻟا (p): لﻣﺎﻌﻣ
+وازيﺗﻟا.
+0x00A8 keymaster_blob_si
+ze
+8 تﯾﺎﺑ مﺟﺣـﻟا Blob ددﺣﯾطولتﺎﻧﺎﯾﺑﻟاﺔﯾﻟﺎﺗﻟا .
+0x00B0 keymaster_blob رﯾﻐﺗﻣ لﺧدﻣﻟاسﻣﺎﺧﻟا (Blob) حﺎﺗﻔﻣ RSA رﻔﺷﻣﻟا
+صﺎﺧﻟاـﺑ TrustZone.
+لﯾﻠﺣﺗقﯾﻣﻋتﻼﺧدﻣﻠﻟ :
+● ـﻟا Magic Number: ودﺟوﺔﻣﯾﻘﻟا0 xD0B5B1C4 وھلﯾﻟدﻟاﻊطﺎﻘﻟاﻰﻠﻋأنذاھزءﺟﻟانﻣرصﻘﻟاويﺗﺣﯾﻰﻠﻋلﯾﯾذﺗ
+.رﯾﻔﺷﺗﻟا،ﮫﻧودﺑﻻنﻛﻣﯾءدﺑ.ﺔﯾﻠﻣﻌﻟا
+8
+● وعﻧﺔﻟداقﺎﻘﺗﺷﻻا (kdf_type): ﻲﻓزةﮭﺟأدﯾدروﻧأ،ﺔﻣﯾدﻘﻟاتﻧﺎﻛﺔﻣﯾﻘﻟاﺎﻧھرﯾﺷﺗﻰﻟإ PBKDF2 أو Scrypt .طﻘﻓنﻛﻟو
+ﻲﻓزﺎﮭﺟ JKM-LX1 ﺞﻟﺎﻌﻣو Kirin 710، نوﻛﺗﺳﺔﻣﯾﻘﻟاﺔﻧزﺧﻣﻟاﺎﻧھﻲھ5،ﻲﺗﻟاوزﻣرﺗ
+ ً
+ﺎﯾﺟﻣرﺑ
+ﻲﻓدوﻛدﯾوردﻧأيردﺻﻣﻟا
+ﻰﻟإ KDF_SCRYPT_KEYMASTER.
+9 
+اذھمﻗرﻟارﯾﻐﺻﻟا"5"وھيذﻟارﯾﻐﯾﺔﻟدﺎﻌﻣﻟالﻣﺎﻛﻟﺎﺑنﻣﺔﻟدﺎﻌﻣﺔﯾﺟﻣرﺑﺔﺗﺣﺑﻰﻟإ
+ﺔﻟدﺎﻌﻣﺔطﺑﺗرﻣدﺎﺗﻌﻟﺎﺑ .
+3. ﺔﯾﻣوارزﺧﻟاﺔﻘﯾﻗدﻟا : KDF_SCRYPT_KEYMASTER
+ً
+ءﺎﻧﺑﻰﻠﻋلﯾﻠﺣﺗودﻛﻟادريﺻﻣﻟاـﻟ vold ( رﯾدﻣداتﻠﺟﻣﻟاﻲﻓ(دﯾدروﻧأقﺋﺎﺛوﻟاوﺔﺑرﺳﻣﻟاﺔﻘﻠﻌﺗﻣﻟاونﻣﺄﺑةزﮭﺟأ Kirin، نﺈﻓﺔﯾﻣزراوﺧﻟا
+ﺔﻘﯾﻗدﻟاكﻔﻟرﯾﻔﺷﺗحﺎﺗﻔﻣ master_key ﻲھﺔﯾﻠﻣﻋةددﻌﺗﻣ.لﺣارﻣﻟاموﻘﻧﺳﺎﮭﺗﻏﺎﯾﺻﺑ
+ ً
+ﺎﯾﺿﺎﯾر
+ ً
+ﺎﯾﻘطﻧﻣو
+ﺎﻣﻛتﺑﻠط)1+1=2 ).
+دفﮭﻟاﻲﺋﺎﮭﻧﻟاوھبﺎﺳﺣحﺎﺗﻔﻣكﻓرﯾﻔﺷﺗﻟاطﯾﺳوﻟا (Key Encryption Key - KEK) ذيﻟاﮫﻣدﺧﺗﺳﻧﺳكﻔﻟرﯾﻔﺷﺗـﻟا
+master_key ودﺟوﻣﻟاﻲﻓلﯾﯾذﺗﻟا .
+
+3.1 ﺔﻠﺣرﻣﻟا:ﻰﻟوﻷاقﺎﻘﺗﺷﻻاﻲﻟوﻷا (Scrypt Phase 1)
+ومﻘﺗذهھﺔﻠﺣرﻣﻟالﯾوﺣﺗﺑﺔﻣﻠﻛرورﻣدمﺧﺗﺳﻣﻟاأو)(طﻣﻧﻟاﻰﻟإحﺎﺗﻔﻣ،ﻲﺋدﺑﻣكﻟذودﯾﻘﻌﺗﻟﺔﯾﻠﻣﻋنﯾﻣﺧﺗﻟاﺔﯾﺎﻣﺣوﺔﻣﻠﻛرورﻣﻟانﻣ
+تﺎﻣﺟﮭﻟاةرﺷﺎﺑﻣﻟا .
+● تﻼﺧدﻣﻟا:
+1. Password: ﺔﻣﻠﻛرورﻣدمﺧﺗﺳﻣﻟاﺔﻠﺳﻠﺳ).(ﺔﯾﺻﻧاذإنﺎﻛ،
+ً
+ﺎطﻣﻧمﺗﯾﮫﻠﯾوﺣﺗمﺎﻗرﻷ .
+2. Salt: ـﻟا16تﯾﺎﺑﺔﺟرﺧﺗﺳﻣﻟانﻣلﯾﯾذﺗﻟا (OOfset 0x80).
+3. N: مﺗﯾﮫﺑﺎﺳﺣـﻛ$2 ^{N\_factor}$. ( نﻣلﯾﯾذﺗﻟا OOfset 0x9D).
+4. r: r_factor ( نﻣلﯾﯾذﺗﻟا OOfset 0x9E).
+5. p: p_factor ( نﻣلﯾﯾذﺗﻟا OOfset 0x9F).
+● ﺔﯾﻠﻣﻌﻟا:ﺔﯾﺿﺎﯾرﻟا
+مﺗﯾمادﺧﺗﺳاﺔﻟاد scrypt ﺔﯾﺳﺎﯾﻘﻟادﯾﻟوﺗﻟحﺎﺗﻔﻣطﯾﺳولوأ (Intermediate Key 1 - IK1).
+$$IK1 = \text{scrypt}(P=Password, S=Salt, N=2^{N\_factor}, r=r, p=p, \text{dkLen}=32)$$
+ثﯾﺣ dkLen وھلوطحﺎﺗﻔﻣﻟاﺞﺗﺎﻧﻟا)32تﯾﺎﺑ ).
+● نﺎﻛﻣ:ذﯾﻔﻧﺗﻟاةدﺣوﺔﺟﻟﺎﻌﻣﻟاﺔﯾزﻛرﻣﻟا (CPU) ﻲﻓمﺎظﻧﻟايدﺎﻌﻟا (Android OS).
+3.2 ﺔﻠﺣرﻣﻟا:ﺔﯾﻧﺎﺛﻟاﻊﯾﻗوﺗﻟايدﺎﺗﻌﻟا (TEE Signing Phase)
+ذهھﻲھﺔﻠﺣرﻣﻟاﺔﻣﺳﺎﺣﻟاﻲﺗﻟاطﺑرﺗحﺎﺗﻔﻣﻟازﺎﮭﺟﻟﺎﺑ JKM-LX1
+ ً
+ داﯾدﺣﺗوﺞﻟﺎﻌﻣﺑ Kirin 710.
+● تﻼﺧدﻣﻟا:
+1. IK1: ﺞﺗﺎﻧﻟانﻣﺔﻠﺣرﻣﻟاﻰﻟوﻷا .
+2. Keymaster Blob: تﺎﻧﺎﯾﺑﻟاﺔﯾﺋﺎﻧﺛﻟاﺔﺟرﺧﺗﺳﻣﻟانﻣلﯾﯾذﺗﻟا (OOfset 0xB0). ذهھتﺎﻧﺎﯾﺑﻟاﻲھﻲﻓﻊﻗواﻟا
+ضﺑﻘﻣ"" (Handle) حﺎﺗﻔﻣﻟ RSA صﺎﺧﻲﻣﺣﻣولﺧادﺞﻟﺎﻌﻣﻟا .
+● ﺔﯾﻠﻣﻌﻟا:
+1. بﻠطﯾمﺎظﻧﻟانﻣ TrustedCore (ﺔﺋﯾﺑ TrustZone) ﻊﯾﻗوﺗ IK1.
+2. ومﻘﺗ TrustZone كﻔﺑرﯾﻔﺷﺗ Keymaster Blob دامﺧﺗﺳﺎﺑحﺎﺗﻔﻣذريﺟ (Hardware Unique Key -
+HUK) ورﻔﺣﻣﻲﻓونﻛﯾﻠﯾﺳﻟاﻻونﻛﻣﯾﮫﺗراءﻗ
+ ً
+ﺎﯾﺟﻣرﺑ 
+.
+3. دﻌﺑكﻓر،ﯾﻔﺷﺗﻟالﺻﺣﺗ TrustZone ﻰﻠﻋحﺎﺗﻔﻣ RSA صﺎﺧﻟا (RSA Private Key).
+4. ومﻘﺗ TrustZone راءﺟﺈﺑﺔﯾﻠﻣﻋﻊﯾﻗوﺗ RSA ﻰﻠﻋ IK1.
+$$Signature = \text{RSA\_Sign}(Data=IK1, Key=RSA\_Private\_Key)$$
+5. مﺗﯾعﺎﺟإر Signature ( دةﺎﻋمﺟﺣﺑ2048تﺑ/256(تﯾﺎﺑﻰﻟإمﺎظﻧﻟايدﺎﻌﻟا .
+● ﺔظﺣﻼﻣ:ﺔﯾرھوﺟهذھﺔﯾﻠﻣﻌﻟاﻻنﻛﻣﯾﺎﮭﺗﺎﻛﺎﺣﻣﻰﻠﻋزﺎﮭﺟرﺗوﯾﺑﻣﻛﻲﺟرﺎﺧﺎﻧﻧﻷﻻكﻠﻣﻧ HUK ﻻو RSA_Private_Key.
+2
+3.3 ﺔﻠﺣرﻣﻟا:ﺔﺛﻟﺎﺛﻟاقﺎﻘﺗﺷﻻاﻲﺋﺎﮭﻧﻟا (Scrypt Phase 2)
+مﺗﯾلﯾوﺣﺗﻊﯾﻗوﺗﻟاديﺎﺗﻌﻟاﻰﻟإحﺎﺗﻔﻣﻟاﻲﺋﺎﮭﻧﻟادمﺧﺗﺳﻣﻟاﻲﻓكﻓرﯾﻔﺷﺗﻟا (KEK).
+
+● تﻼﺧدﻣﻟا:
+1. Signature: ﺞﺗﺎﻧﻟانﻣﺔﻠﺣرﻣﻟاﺔﯾﻧﺎﺛﻟا .
+2. Salt: سﻔﻧﺢﻠﻣﻟادمﺧﺗﺳﻣﻟاﻲﻓﺔﻠﺣرﻣﻟاﻰﻟوﻷانﻣ)لﯾﯾذﺗﻟا ).
+3. N, r, p: سﻔﻧتﻼﻣﺎﻌﻣﻟا .
+● ﺔﯾﻠﻣﻌﻟا:ﺔﯾﺿﺎﯾرﻟا
+مﺗﯾقﯾﺑطﺗﺔﻟاد scrypt ةرﻣ،ىرﺧأنﻛﻟوهذھةرﻣﻟامﺗﯾمادﺧﺗﺳاﻊﯾﻗوﺗﻟاـﻛﺔﻣﻠﻛ"رورﻣ ".
+$$KEK = \text{scrypt}(P=Signature, S=Salt, N=2^{N\_factor}, r=r, p=p,
+\text{dkLen}=32)$$
+● :ﺞﺗﺎﻧﻟا
+ﺞﺗﺎﻧﻟاوھ KEK مﺟﺣﺑ32.تﯾﺎﺑمﺗﯾمﯾﺳﻘﺗاذھﺞﺗﺎﻧﻟاﻰﻟإنﯾأزﺟ :
+○ أول16:تﯾﺎﺑحﺎﺗﻔﻣرﯾﻔﺷﺗﻟا (AES Key).
+○ ﻲﻧﺎﺛ16:تﯾﺎﺑﮫﺟﺗﻣﺔﺋﯾﮭﺗﻟا (Initialization Vector - IV).
+3.4 ﺔﻠﺣرﻣﻟا:ﺔﻌﺑراﻟاكﻓرﯾﻔﺷﺗفدﮭﻟا (Decryption)
+راً،ﯾﺧأمﺗﯾدامﺧﺗﺳا KEK كﻔﻟرﯾﻔﺷﺗـﻟا master_key ودﺟوﻣﻟاﻲﻓلﯾﯾذﺗﻟا .
+● تﻼﺧدﻣﻟا:
+1. Encrypted Master Key: ـﻟا48تﯾﺎﺑﺔﺟرﺧﺗﺳﻣﻟانﻣلﯾﯾذﺗﻟا (OOfset 0x60).
+2. AES Key: زءﺟﻟاولﻷانﻣ KEK.
+3. IV: زءﺟﻟاﻲﻧﺎﺛﻟانﻣ KEK.
+● :ﺔﯾﻠﻣﻌﻟا
+مﺗﯾمادﺧﺗﺳاﺔﯾﻣزراوﺧ AES طﻣﻧﺑ CBC (Cipher Block Chaining).
+$$Decrypted\_Master\_Key = \text{AES\_Decrypt}(Ciphertext=Encrypted\_Master\_Key,
+Key=AES\_Key, IV=IV)$$
+● :ﺔﺟﯾﺗﻧﻟا
+لﺻﺣﻧﻰﻠﻋ Decrypted Master Key ( ةدﺎﻋ32(تﯾﺎﺑوھوحﺎﺗﻔﻣﻟاﻲﻠﻌﻔﻟايذﻟاﮫﻣدﺧﺗﺳﯾمﺎظﻧتﺎﻔﻠﻣﻟا (fscrypt) كﻔﻟ
+رﯾﻔﺷﺗءﺎﻣﺳأتﺎﯾوﺗﺣﻣوتﺎﻔﻠﻣ.مدﺧﺗﺳﻣﻟا1
+4. لﯾﺻﺎﻔﺗﻟاﺔﯾﻧﻘﺗﻟاﺔﻘﯾﻣﻌﻟاﺔﯾﻠﻣﻌﻟ scrypt ﺎﮭﺗﻼﻣﺎﻌﻣوﻲﻓﺔﺋﯾﺑ Kirin
+مﮭﻔﻟقﻣﻋ"1+1=2،"بﺟﯾحرﺷاذﺎﻣﻟمﺗرﺎﯾﺗﺧا scrypt فﯾﻛولﻣﻌﺗهذھتﻼﻣﺎﻌﻣﻟا
+ ً
+ادﯾدﺣﺗﻲﻓقﺎﯾﺳﺞﻟﺎﻌﻣ Kirin 710. ﺔﻟاد
+scrypt تﺳﯾﻟﺔﻟادﺔﺋزﺟﺗ (Hash) ﺔﯾدﺎﻋلﺛﻣ SHA-256، لﺑﻲھﺔﻟادﺔﻔﻠﻛﻣ"ةرﻛاذﻠﻟ " (Memory-Hard Function).
+12
+4.1 دورتﻼﻣﺎﻌﻣﻟا N, r, p
+ﻲﻓلﯾﯾذﺗرﯾﻔﺷﺗﻟاصﺎﺧﻟاـﺑ JKM-LX1، دﺟﻧدةﺎﻋمﯾﻘﻟاﺔﯾﻟﺎﺗﻟا :
+● $N\_factor = 15$: ذاھﻲﻧﻌﯾأنددﻋراراتﻛﺗﻟاوھ$2}^15{=32,768$.دورةاذھمﻗرﻟامﺗهرﺎﯾﺗﺧاﺔﻗدﺑبﺑﺳﺗﯾﻟﻲﻓ
+
+رﯾﺧﺄﺗﻲﻧﻣزدرهﻗﻲﻟواﺣﺔﯾﻧﺎﺛدةﺣوادﻧﻋﺔﻟوﺎﺣﻣقﺎﻘﺗﺷﻻاﻰﻠﻋﺞﻟﺎﻌﻣ.فﺗﺎﮭﻟافدﮭﻟاوھلﻌﺟتﻻوﺎﺣﻣنﯾﻣﺧﺗﻟا
+(Brute-force) ﺔﺋﯾطﺑ
+ ً
+ادﺟ 
+.
+● $r\_factor = 3$: ددﺣﯾمﺟﺣﺔﻠﺗﻛﻟا (Block Size). ﻲﻓﺔﯾﻣوارزﺧ scrypt، مﺟﺣرةﻛذاﻟاﺔﺑوﻠطﻣﻟادﻣﺗﻌﯾﻰﻠﻋﺔﻟدﺎﻌﻣﻟا
+$128 \times r \times N$ تﯾﺎﺑ.
+● $p\_factor = 1$: لﻣﺎﻌﻣ.وازيﺗﻟا
+ ً
+ارظﻧنﻷﺔﯾﻠﻣﻌﻟامﺗﺗلﻛﺷﺑﻲﻠﺳﻠﺳﺗكﻔﻟرﯾﻔﺷﺗحﺎﺗﻔﻣﻟادﻧﻋ،عﻼﻗﻹانﺈﻓيزاوﺗﻟارﯾﻏ
+بوﻠطﻣﺎﻧھةدﺎﯾزﻟ،دﯾﻘﻌﺗﻟالﺑمﺗﯾدﺎﻣﺗﻋﻻاﻰﻠﻋ $N$.
+4.2 لﻋﺎﻔﺗﻟاﻊﻣ Keymaster ﻲﻓتﺎﺟﻟﺎﻌﻣ HiSilicon
+ﻲﻓﺞﻟﺎﻌﻣ Kirin 710، مﺗﯾذﯾﻔﻧﺗﺔﮭﺟوا Keymaster ( ﺔﻟؤوﺳﻣﻟانﻋﻊﯾﻗوﺗﻟاﻲﻓﺔﻠﺣرﻣﻟا(ﺔﯾﻧﺎﺛﻟاـﻛ Trusted Application (TA).
+ﺎﻣدﻧﻋﻲﻋدﺗﺳﯾدوﻛﻟاﺔﻟاد keymaster_sign_object، ثدﺣﯾﺎﻣﻲﻠﯾﻰﻠﻋىوﺗﺳﻣﺞﻟﺎﻌﻣﻟا :
+1. مﺗﯾقﯾﻠﻌﺗواةﻧ Linux (Android Kernel).
+2. مﺗﯾذﯾﻔﻧﺗﺔﻣﯾﻠﻌﺗ SMC (Secure Monitor Call) مﻗرﺑددﺣﻣقﻓواﯾﺔﻣدﺧرﯾﻔﺷﺗﻟا .
+3. ومﻘﯾبﻗراﻣنﻣﻷا (Secure Monitor) لﯾوﺣﺗﻟﺎﺑﻰﻟإﻊﺿو TrustZone.
+4. مﺗﯾلﯾﻣﺣﺗـﻟا TA صﺎﺧﻟاـﺑ Huawei ( روفﻌﻣﻟواﻲﻓضﻌﺑدرﺎﺻﻣﻟاءﺎﻣﺳﺄﺑلﺛﻣ libteec أوتﺎﻧوﻛﻣ TrustedCore).
+5. قﻘﺣﺗﯾـﻟا TA نﻣﺔﺣﺻـﻟا Blob ﮫﻧوأمﻟمﺗﯾبﻋﻼﺗﻟاﮫﺑ (HMAC verification) دامﺧﺗﺳﺎﺑحﺎﺗﻔﻣقﺗﺷﻣنﻣ HUK.
+6. إذانﺎﻛـﻟا Blob ،ًﺎﺣﯾﺣﺻمﺗﯾﻊﯾﻗوﺗﻟا .
+ذاھلﻋﺎﻔﺗﻟادﻘﻌﻣﻟاوھﺎﻣﻊﻧﻣﯾﺔطﺎﺳﺑﺑﺦﺳﻧفﻠﻣ userdata ﻰﻟإزﺎﮭﺟرﺧآكﻓوره،ﯾﻔﺷﺗنﻷ HUK فﻠﺗﺧﯾنﻣﺔﺣﯾرﺷونﻛﯾﻠﯾﺳ
+رىﺧﻷ.
+5. راتﻐﺛﻟاتﺎﯾﻟوآراجﺧﺗﺳﻻاﻲﺋﺎﻧﺟﻟاوزﺎﺟﺗ)لﯾﺣﺗﺳﻣﻟا )
+إذاتﻧﺎﻛﺔﯾﻣوارزﺧﻟادﻣﺗﻌﺗﻰﻠﻋد،ﺎﺗﻌﻟافﯾﻛﻓﻲﻋدﺗﺞﻣراﺑلﺛﻣ Passware 
+14 
+درةﻘﻟاﻰﻠﻋكﻓر؟ﯾﻔﺷﺗﻟاﺔﺑﺎﺟﻹانﻣﻛﺗﻲﻓلﻼﻐﺗﺳا
+راتﻐﺛﻲﻓذﯾﻔﻧﺗذهھﺔﯾﻣوارزﺧﻟاسﯾﻟوﻲﻓﺔﯾﻣوارزﺧﻟاﺎﮭﺳﻔﻧ .
+5.1 راتﻐﺛ TrustedCore و Xloader
+رتﺎﺷأثﺎﺣﺑﻷاﺔﯾﻧﻣﻷا
+2
+ﻰﻟإودﺟوراتﻐﺛرةﯾطﺧﻲﻓلﻣﺣﻣعﻼﻗﻹا (Bootloader/Xloader) صﺎﺧﻟاتﺎﺟﻟﺎﻌﻣﺑ Kirin 710.
+دىﺣإذهھراتﻐﺛﻟاقﻠﻌﺗﺗولﻛوﺗروﺑﺑردادﺗﺳﻻارﺑﻋ USB (xmodem).
+● نﻣلﻼﺧلﻣﻋرﺻﻗﻲﺋﺎﺑرﮭﻛطﺎﻘﻧﻟرﺎﺑﺗﺧا (Test Points) ﻰﻠﻋﺔﺣوﻠﻟامﻷافﺗﺎﮭﻠﻟ JKM-LX1، نﻛﻣﯾرﺎﺑﺟإﺞﻟﺎﻌﻣﻟاﻰﻠﻋ
+ولﺧدﻟاﻲﻓﻊﺿوطوارئ (USB COM 1.0).
+● ﻲﻓذاھ،ﻊﺿوﻟانﻛﻣﯾمﺟﺎﮭﻣﻠﻟلﯾﻣﺣﺗودﻛصﺻﺧﻣ (Custom Loader) ﻰﻟإرةﻛذا RAM ﺔﺻﺎﺧﻟاﺞﻟﺎﻌﻣﻟﺎﺑلﺑﻗأنمﺗﯾ
+نﯾﻣﺄﺗ TrustZone لﻣﺎﻛﻟﺎﺑ.
+● ذاھودﻛﻟاصﺻﺧﻣﻟاﮫﻧﻛﻣﯾلﺻواﺗﻟاﻊﻣـﻟا TEE بﻠوطﻊﯾﻗوﺗتﺎﻧﺎﯾﺑﻟادونﺔﺟﺎﺣﻟاﺔﻣﻠﻛﻟرورﻣﺔﺣﯾﺣﺻﻲﻓ،ﺔﯾداﺑﻟاأوﮫﻧﻛﻣﯾ
+راجﺧﺗﺳاﺢﯾﺗﺎﻔﻣﺔطﯾﺳودﻋﺎﺳﺗﻲﻓﻊﯾرﺳﺗﺔﯾﻠﻣﻋنﯾﻣﺧﺗﻟا .
+5.2 ومﺟﮭﻟانﯾﺟﮭﻟا (Hybrid Attack)
+
+دﻣﺗﻌﺗدواتﻷاﺔﯾﺋﺎﻧﺟﻟاﻰﻠﻋبﺣﺳورةﺻﺔﻠﻣﺎﻛرص،ﻘﻠﻟمﺛدامﺧﺗﺳالﯾﻛو" " (Agent) لﻣﻌﯾﻰﻠﻋفﺗﺎﮭﻟاﮫﺳﻔﻧ .
+1. مﺗﯾلﯾﻐﺷﺗفﺗﺎﮭﻟاودﻛﺑدلﻌﻣ .
+2. ومﻘﯾرﺗوﯾﺑﻣﻛﻟاﻲﺟرﺎﺧﻟادﯾﻟوﺗﺑنﯾﯾﻼﻣتﺎﻣﻠﻛرورﻣﻟاﺔﻠﻣﺗﺣﻣﻟا .
+3. مﺗﯾبﺎﺳﺣ IK1 لﻛﻟﺔﻣﻠﻛرورﻣﻰﻠﻋرﺗوﯾﺑﻣﻛﻟاﺔﻋرﺳﺑ)ﺔﯾﻟﺎﻋ
+ ً
+ادﺟ ).
+4. مﺗﯾلﺎﺳإر IK1 ﺢﯾﺣﺻﻟاأو)(ﺢﺷرﻣﻟاﻰﻟإفﺗﺎﮭﻟاموﻘﯾﻟـﻟا TEE ﮫﻌﯾﻗوﺗﺑ.
+5.
+ ً
+ ظراﻧنﻷقﻧﻋﺔﺟﺎﺟزﻟاوھـﻟا TEE، نﺈﻓدواتﻷاولﺎﺣﺗلﻼﻐﺗﺳاراتﻐﺛوزﺎﺟﺗﻟدادﻋتﻻوﺎﺣﻣﻟاﺔﻠﺷﺎﻔﻟاأوﻊﯾرﺳﺗﻟﺔﯾﻠﻣﻋ
+ﻊﯾﻗوﺗﻟا.
+6. ودﻛونﺛﯾﺎﺑرﯾﻔﺷﺗﻠﻟكﻓورﯾﻔﺷﺗﻟاةﺎﻛﺎﺣﻣﻟا)ﺔﻘﯾﻗدﻟا )
+ودﻛﻟاﻲﻟﺎﺗﻟاوبﺗﻛﻣﺔﻐﻠﺑونﺛﯾﺎﺑ3،وھولﺛﻣﯾذﯾﻔﻧﺗﻟاﻲﻓرﺣﻟاﺔﯾﻣوارزﺧﻠﻟﺎﻣﻛوردتﻲﻓ cryptfs.cpp، ﻊﻣﺢﯾﺿوﺗنﻛﺎﻣﻷاﻲﺗﻟابﻠطﺗﺗ
+لﺧدﺗدﺎﺗﻌﻟا .
+تﺎﺑﻠطﺗﻣلﯾﻐﺷﺗﻟا :
+● ﺔﺑﺗﻛﻣ scrypt: pip install scrypt
+● ﺔﺑﺗﻛﻣ pycryptodome: pip install pycryptodome
+Python
+import struct
+import sys
+import os
+import hashlib
+import scrypt
+from Crypto.Cipher import AES
+from Crypto.Util.Padding import unpad
+#
+========================================================================
+=====
+# تﺑواﺛمﺎظﻧﻟاتﺎﻔﯾرﻌﺗولﯾﯾذﺗﻟا
+ ً
+ءﺎﻧﺑ
+)ﻰﻠﻋ Android Source & Kirin binary analysis)
+#
+========================================================================
+=====
+CRYPT_MNT_MAGIC = 0xD0B5B1C4
+HEADER_FMT = '<IHHIIIIQI32sI' # ﺔﯾﻠﻛﯾھتﺎﻧﺎﯾﺑﻟاﺔﺗﺑﺎﺛﻟاﻲﻓﺔﯾادﺑلﯾﯾذﺗﻟا
+#لﯾﺻﻔﺗﺔﯾﻠﻛﯾﮭﻟا :
+# Magic (4), Major (2), Minor (2), FtrSize (4), Flags (4), KeySize (4), Spare1 (4)
+# FsSize (8), FailedDecrypt (4), CryptoType (32), Spare2 (4)
+# ﻊﻗاوﻣﻟا (OOfsets) ﺔﻘﯾﻗدﻟاتﻼﺧدﻣﻠﻟلﺧادرﺧآ16 KB
+
+OFFSET_ENCRYPTED_KEY = 0x60 # 96 decimal
+OFFSET_SALT = 0x80 # 128 decimal
+OFFSET_KDF_TYPE = 0x9C # 156 decimal ( ،ًﺎﺑﯾرﻘﺗدﻣﺗﻌﯾﻰﻠﻋ(ذاةﺎﺣﻣﻟا
+#:ﺔظﺣﻼﻣﻲﻓ Kirin 710، ةدﺎﻋﺎﻣﻊﺑﺗﺗتﻼﻣﺎﻌﻣﻟابﯾﺗرﺗﻟاﻲﻟﺎﺗﻟادﻌﺑلوﻘﺣﻟاﺔﺗﺑﺎﺛﻟا :
+# Salt (16 bytes) -> KDF_Params (variable) -> Keymaster_Blob (variable)
+class KirinCryptoFooter:
+def __init__(self, footer_data):
+if len(footer_data)!= 16384:
+raise ValueError(" بﺟﯾنأنوﻛﯾمﺟﺣتﺎﻧﺎﯾﺑلﯾﯾذﺗﻟا16تﯾﺎﺑوﻠﯾﻛطﺑﺿﻟﺎﺑ ")
+self.raw = footer_data
+# 1. لﯾﻠﺣﺗسأرﻟا (Header Parsing)
+# أرﻘﻧلوأ100تﯾﺎﺑﺔﻧﯾﻌﻛقﻘﺣﺗﻠﻟ
+magic = struct.unpack('<I', footer_data[0[4])
+if magic!= CRYPT_MNT_MAGIC:
+raise ValueError(f"مﻗر Magic رﯾﻏﺢﯾﺣﺻ : {hex(magic)}، اذھسﯾﻟلﯾﯾذﺗرﯾﻔﺷﺗدﯾوردﻧأﺢﻟﺎﺻ .")
+self.major_ver = struct.unpack('<H', footer_data[4[6])
+self.minor_ver = struct.unpack('<H', footer_data[6[8])
+self.ftr_size = struct.unpack('<I', footer_data[8[12])
+self.keysize = struct.unpack('<I', footer_data[16[20])
+# 2. جارﺧﺗﺳاتﻼﺧدﻣﻟا (Inputs Extraction)
+# جارﺧﺗﺳاحﺎﺗﻔﻣﻟارﻔﺷﻣﻟا (Ciphertext)
+# ﻊﻘﯾدﻧﻋﺔﺣازﻹا96ﮫﻟوطو48تﯾﺎﺑ
+self.encrypted_master_key = footer_data[96[96+48]
+# جارﺧﺗﺳاﺢﻠﻣﻟا (Salt)
+# ﻊﻘﯾدﻧﻋﺔﺣازﻹا128ﮫﻟوطو16تﯾﺎﺑ
+self.salt = footer_data[128[128+16]
+# جارﺧﺗﺳاتﻼﻣﺎﻌﻣ KDF
+# ﻊﻗاوﻣﻟاﺎﻧھﺔﯾﺑﯾرﻘﺗدﻣﺗﻌﺗوﻰﻠﻋرادﺻإ cryptfs.h ،ددﺣﻣﻟاﺎﻧﻧﻛﻟومدﺧﺗﺳﻧﺳقطﻧﻣﻟاﻲﺳﺎﯾﻘﻟا
+#ﻲﻓﺔﯾﻧﺑ struct crypt_mnt_ftr:
+# Salt (16) -> persist_data_oOfset (8) -> persist_data_size (4) -> kdf_type (1)
+# 128 + 16 + 8 + 8 + 4 = 164 ( اذھ،رﯾدﻘﺗصﺣﻔﻧﺳتﺎﺗﯾﺎﺑﻟا(ةرﺷﺎﺑﻣ
+#ﻲﻓةزﮭﺟأ،يواوھمﺗﯾنﯾزﺧﺗتﻼﻣﺎﻌﻣ Scrypt ةرﺷﺎﺑﻣدﻌﺑتﺎﻧﺎﯾﺑﻟاﺔﺗﺑﺎﺛﻟا
+#ضرﺗﻔﻧﺳﻊﻗاوﻣﻟاﺔﯾﺳﺎﯾﻘﻟارادﺻﻺﻟ1.3
+# kdf_type دوﺟوﻣةدﺎﻋﻲﻓﺔﺣازﻹا156وأ160
+#مﻘﻧﻟثﺣﺑﺑطﯾﺳﺑنﻋﺔﻣﯾﻘﻟا'15 ' (N_factor) و'5 ' (kdf_type) ﻲﻓﺔﻘطﻧﻣﻟاﺔﻌﻗوﺗﻣﻟا
+
+#لﯾﮭﺳﺗﻠﻟﻲﻓود،ﻛﻟادمﺧﺗﺳﻧﺳمﯾﻘﻟاﺔﺗﺑﺎﺛﻟاﺔﻓروﻌﻣﻟاـﻟ JKM-LX1 إذامﻟنﻛﻣﺗﻧنﻣلﯾﻠﺣﺗﻟاﻲﻛﯾﻣﺎﻧﯾدﻟا
+#نﻛﻟوودﻛﻟاهﺎﻧأدولﺎﺣﯾراءةﻘﻟانﻣﺔﺣزاﻹاﺔﯾﺳﺎﯾﻘﻟا
+kdf_oOfset_start = 156 # ﺔﯾداﺑﺔﻘطﻧﻣ KDF params
+self.kdf_type = footer_data[kdf_oOfset_start]
+self.N_factor = footer_data[kdf_oOfset_start + 1]
+self.r_factor = footer_data[kdf_oOfset_start + 2]
+self.p_factor = footer_data[kdf_oOfset_start + 3]
+# راجﺧﺗﺳا Keymaster Blob
+# ﻲﺗﺄﯾدﻌﺑ.تﻼﻣﺎﻌﻣﻟاأدﺑﯾمﺟﺣﺑـﻟا blob (8 bytes)
+blob_len_oOfset = kdf_oOfset_start + 4 + 8 # ﺎﻧزوﺎﺟﺗتﻼﻣﺎﻌﻣﻟالوﻘﺣوىرﺧأ
+#ﻲﻓقﯾﺑطﺗﻟا،ﻲﻠﻣﻌﻟاـﻟا blob ﺔﻣﺧﺿﻲﻟاوﺣ)2048تﯾﺎﺑ )
+self.keymaster_blob_size = struct.unpack('<Q', footer_data[168[176]) # لﺎﺛﻣﺔﺣازﻺﻟ
+self.keymaster_blob = footer_data[176[176+int(self.keymaster_blob_size)]
+def print_info(self):
+print(f"[+] Magic: {hex(CRYPT_MNT_MAGIC)}")
+print(f"[+] Version: {self.major_ver}.{self.minor_ver}")
+print(f"[+] KDF Type: {self.kdf_type} (5 = KDF_SCRYPT_KEYMASTER)")
+print(f"[+] Scrypt Params: N=2^{self.N_factor}, r={self.r_factor}, p={self.p_factor}")
+print(f"[+] Salt: {self.salt.hex()}")
+print(f"[+] Encrypted Key: {self.encrypted_master_key.hex()}")
+#
+========================================================================
+=====
+# ﺔﻟادةﺎﻛﺎﺣﻣﻟا (Simulation of Hardware Signing)
+#
+========================================================================
+=====
+def hardware_tee_sign_simulator(data, device_connected=False):
+"""
+هذھﺔﻟادﻟالﺛﻣﺗقودﻧﺻﻟادوﺳﻷا (Black Box).
+ﻲﻓ،ﻊﻗاوﻟاهذھﺔﯾﻠﻣﻌﻟابﻠطﺗﺗلﺎﺳرإتﺎﻧﺎﯾﺑﻟاﻰﻟإ TrustedCore رﺑﻋ ioctl/SMC.
+"""
+if not device_connected:
+print("\n[ ﮫﯾﺑﻧﺗمﺎھ:[
+ً
+ادﺟ
+هذھةوطﺧﻟابﻠطﺗﺗﻊﯾﻗوﺗدﺎﺗﻌﻟا (Hardware Signing).")
+print(" ﻻنﻛﻣﯾدوﻛﻠﻟﻲﺟﻣرﺑﻟاهدﺣوذﯾﻔﻧﺗهذھةوطﺧﻟانودلﺎﺻﺗﻻاﺞﻟﺎﻌﻣﺑ Kirin 710.")
+print(" مﺗﯾﺳمادﺧﺗﺳاﻊﯾﻗوﺗﻲﻣھو (Dummy Signature) ضرﻐﻟﺢﯾﺿوﺗقﻓدﺗتﺎﻧﺎﯾﺑﻟا(".طﻘﻓ
+#ةﺎﻛﺎﺣﻣﻊﯾﻗوﺗ RSA-2048 ( عﺎﺟرإ256تﯾﺎﺑﺔﯾﺋاوﺷﻋوأةرﺷﮭﻣ )
+return hashlib.sha256(data).digest() * 8
+else:
+
+# ﺎﻧھﻊﺿوﯾودﻛلﺻواﺗﻟاﻊﻣفﺗﺎﮭﻟارﺑﻋ ADB أو Serial
+# send_to_phone(data)
+# return receive_from_phone()
+pass
+#
+========================================================================
+=====
+# ﺔﯾﻣوارزﺧﻟاﺔﯾﺳﯾﺋرﻟا : KDF_SCRYPT_KEYMASTER
+#
+========================================================================
+=====
+def derive_and_decrypt(password, footer):
+print("\n[*] دءﺑﺔﯾﻠﻣﻋقﺎﻘﺗﺷاحﺎﺗﻔﻣﻟا)1+1=2("...(
+#1.زﯾﮭﺟﺗتﻼﻣﺎﻌﻣ Scrypt
+N = 1 << footer.N_factor # لﯾوﺣﺗسﻷاﻰﻟإمﻗر)1>>15=32768 )
+r = footer.r_factor
+p = footer.p_factor
+print(f"[*] طوةﺧﻟا1:بﺎﺳﺣ Scrypt ولﻷا (Software Phase)")
+print(f" تﻼﺧدﺗﻣﻟا: Pass='{password}', Salt={footer.salt.hex()[:10]}..., N={N}, r={r}, p={p}")
+# ذﯾﻔﻧﺗ Scrypt ولﻷادﯾﻟوﺗﻟحﺎﺗﻔﻣﻟاطﯾﺳوﻟا1
+ik1 = scrypt.hash(
+password=password.encode('utf-8'),
+salt=footer.salt,
+N=N,
+r=r,
+p=p,
+buflen=32 # 32 تﯾﺎﺑ (Key + IV طوّرﻠﻟدمﺎﻘﻟاوﻟنﺎﻛ،ًﺎﻣدﺧﺗﺳﻣﺎﻧھجﺎﺗﺣﻧتﺎﺗﯾﺎﺑﻊﯾﻗوﺗﻠﻟ )
+)
+print(f" ﺞﺗﺎﻧﻟا (Intermediate Key 1): {ik1.hex()}")
+# 2. ﻊﯾﻗوﺗﻟاديﺎﺗﻌﻟا
+print(f"[*] طوةﺧﻟا2:ﻊﯾﻗوﺗﻟاديﺎﺗﻌﻟا (TrustedCore Phase)")
+print(f" مﺗﯾلﺎﺳإر IK1 + KeymasterBlob ﻰﻟإ TEE.")
+signature = hardware_tee_sign_simulator(ik1)
+print(f" ﺞﺗﺎﻧﻟا (Signature from TEE): {signature.hex()[:32]}... (Length: {len(signature)})")
+# 3. Scrypt ﻲﻧﺎﺛﻟا
+print(f"[*] طوةﺧﻟا3:بﺎﺳﺣ Scrypt ﻲﻧﺎﺛﻟا (Key Enrichment)")
+print(f" تﻼﺧدﻣﻟا: Pass=Signature, Salt=SameSalt")
+
+# :ﺔظﺣﻼﻣمﺗﯾمادﺧﺗﺳاﻊﯾﻗوﺗﻟاﺔﻣﻠﻛﻛرورﻣﻲﻓﺔﻠﺣرﻣﻟاﺔﯾﻧﺎﺛﻟا
+kek_full = scrypt.hash(
+password=signature,
+salt=footer.salt,
+N=N,
+r=r,
+p=p,
+buflen=32 # جﺎﺗﺣﻧ32تﯾﺎﺑ)16حﺎﺗﻔﻣﻠﻟ+16ـﻠﻟ IV)
+)
+# مﯾﺳﻘﺗﺞﺗﺎﻧﻟا
+kek_key = kek_full[:16]
+kek_iv = kek_full[16:]
+print(f" ﺞﺗﺎﻧﻟاﻲﺋﺎﮭﻧﻟا (KEK Key): {kek_key.hex()}")
+print(f" ﺞﺗﺎﻧﻟاﻲﺋﺎﮭﻧﻟا (KEK IV): {kek_iv.hex()}")
+# 4. كﻓرﯾﻔﺷﺗفدﮭﻟا
+print(f"[*] ةوطﺧﻟا4:كﻓرﯾﻔﺷﺗ Master Key مادﺧﺗﺳﺎﺑ AES-CBC")
+cipher = AES.new(kek_key, AES.MODE_CBC, kek_iv)
+try:
+# كﻓرﯾﻔﺷﺗﻟا
+decrypted_payload = cipher.decrypt(footer.encrypted_master_key)
+print(f" تﺎﻧﺎﯾﺑﻟاﺔﻛوﻛﻔﻣﻟا (Raw): {decrypted_payload.hex()}")
+# تﺎﻧﺎﯾﺑﻟايوﺗﺣﺗةدﺎﻋﻰﻠﻋحﺎﺗﻔﻣﻟاﻲﻘﯾﻘﺣﻟا+تﺎﻧﺎﯾﺑقﻘﺣﺗ (Salt/Checksum)
+# ﻲﻓ،دﯾوردﻧأحﺎﺗﻔﻣﻟاﻲﻘﯾﻘﺣﻟا (DEK) نوﻛﯾةدﺎﻋلوأ16وأ32تﯾﺎﺑ
+real_master_key = decrypted_payload[:16] # ضارﺗﻓا AES-128
+print(f"[!!!] حﺎﺗﻔﻣﻟاﻲﺳﯾﺋرﻟا (CE Master Key): {real_master_key.hex()}")
+return real_master_key
+except Exception as e:
+print(f"[!] ﺄطﺧﻲﻓكﻓرﯾﻔﺷﺗﻟا : {e}")
+return None
+#
+========================================================================
+=====
+# ﺔطﻘﻧلوﺧدﻟا (Entry Point)
+#
+========================================================================
+
+=====
+if __name__ == "__main__":
+# ةﺎﻛﺎﺣﻣراءةﻗفﻠﻣنﻣرصﻘﻟا
+#ﻲﻓﻊﻗواﻟا : with open('/dev/block/mmcblk0p45', 'rb') as f:...
+# ءﺎﺷﻧإتﺎﻧﺎﯾﺑﺔﯾﻣھوﺔﺑرﺟﺗﻠﻟ
+dummy_footer = bytearray(16384)
+struct.pack_into('<I', dummy_footer, 0, CRYPT_MNT_MAGIC)
+struct.pack_into('<H', dummy_footer, 4, 1) # Major
+struct.pack_into('<H', dummy_footer, 6, 3) # Minor
+struct.pack_into('<I', dummy_footer, 16, 16) # Key Size
+# ﺔﺋﺑﻌﺗتﺎﻧﺎﯾﺑﺔﯾﺋواﺷﻋﺢﻠﻣﻠﻟحﺎﺗﻔﻣﻟوا
+import os
+dummy_salt = os.urandom(16)
+dummy_enc_key = os.urandom(48) # 48 bytes (multiple of 16 for AES block)
+dummy_footer[128[128+16] = dummy_salt
+dummy_footer[96[96+48] = dummy_enc_key
+# ﺔﺋﺑﻌﺗتﻼﻣﺎﻌﻣﻟا (N=15, r=3, p=1)
+dummy_footer = 5 # KDF Type
+dummy_footer = 11 # N_factor ( ﺔﻣﯾﻗرةﯾﻐﺻﺔﺑرﺟﺗﻠﻟ،ﺔﻌﯾرﺳﻟاﻊﻗواﻟا15 )
+dummy_footer = 3 # r
+dummy_footer = 1 # p
+# لﯾﻐﺷﺗﺔﯾﻠﻣﻌﻟا
+try:
+footer = KirinCryptoFooter(dummy_footer)
+footer.print_info()
+# ﺔﺑرﺟﺗﺔﻣﻠﻛرورﻣنﻟ)ﺢﺟﻧﺗﻲﻓكﻓرﯾﻔﺷﺗﻟاﻲﻘﯾﻘﺣﻟانﻷتﺎﻧﺎﯾﺑﻟاﺔﯾﻣھوﻊﯾﻗوﺗﻟاو(ﻲﻣھو
+#ﺎﮭﻧﻛﻟوتﺑﺛﺗﺔﺣﺻﺔﯾﻣزراوﺧﻟاقﻓدﺗوتﺎﻧﺎﯾﺑﻟا
+derive_and_decrypt("123456", footer)
+except Exception as e:
+print(f"Error: {e}")
+7. تﺎﺟﺎﺗﻧﺗﺳﻻاتﺎﯾﺻوﺗﻟواﺔﯾﺋﺎﮭﻧﻟا
+
+إنﺔﯾﻣوارزﺧﻟاﻲﺗﻟاﻲﻣﺣﺗتﺎﻧﺎﯾﺑفﺗﺎھ JKM-LX1 ﻲھقﯾﺑطﺗنﻘﺗﻣولﻛوﺗروﺑﻟ KDF_SCRYPT_KEYMASTER، وھو
+ولﻛوﺗروﺑمﻣﺻﻣ
+ ً
+ﺎﺻﯾﺻﺧ
+دﺳﻟوةﺟﻔﻟانﯾﺑنﻣأتﺎﯾﺟﻣرﺑﻟانﻣوأدﺎﺗﻌﻟا .
+1. ﺔﯾدﺎﻣﺗﻋﻻاﻰﻠﻋ:دﺎﺗﻌﻟاﻻنﻛﻣﯾجارﺧﺗﺳاحﺎﺗﻔﻣﻟاكﻓوهرﯾﻔﺷﺗدرﺟﻣﺑﺦﺳﻧ.تﺎﻧﺎﯾﺑﻟاﺔﻟدﺎﻌﻣﻟا1+1=2ﺎﻧھنﻣﺿﺗﺗ
+ ً
+ارﯾﻐﺗﻣ
+ ً
+ﺎﺛﻟﺎﺛ
+(ﻊﯾﻗوﺗﻟا)ﻻنﻛﻣﯾﮫﺑﺎﺳﺣﻻإكﻼﺗﻣﺎﺑفﺗﺎﮭﻟاﮫﺳﻔﻧﮫﻠﯾﻐﺷﺗو .
+2. وةﻘﻟا:ﺔﯾﺑﺎﺳﺣﻟامادﺧﺗﺳا scrypt لﻣﺎﻌﻣﺑ $N=2^{15}$ ضرﻔﯾﺔﻔﻠﻛﺗﺔﯾﻧﻣزﺔﯾدراوﻣوﺔﯾﻟﺎﻋ
+ ً
+ادﺟﻰﻠﻋيأﺔﻟوﺎﺣﻣ،نﯾﻣﺧﺗ
+ﻰﺗﺣﻊﻣدوﺟودﺎﺗﻌﻟاﻲﻠﺻﻷا .
+3. رﺎﺳﻣﻟا:دﯾﺣوﻟالوﺻوﻠﻟﻰﻟإ،تﺎﻧﺎﯾﺑﻟارﺎﯾﺧﻟادﯾﺣوﻟاحﺎﺗﻣﻟا
+ ً
+ﺎﯾﻧﻘﺗوھموﺟﮭﻟا"ﻲﺣﻟا " (Live Attack) رﺑﻋلﻼﻐﺗﺳاتارﻐﺛ
+Bootloader وأ TrustZone رﺎﺑﺟﻹﺞﻟﺎﻌﻣﻟاﻰﻠﻋﻊﯾﻗوﺗﺢﯾﺗﺎﻔﻣﻟاﺔطﯾﺳوﻟاﻲﺗﻟاﺎھدﻟوﯾﺞﻣﺎﻧرﺑ،نﯾﻣﺧﺗﻟاوھوﺎﻣموﻘﺗﮫﺑ
+تاودﻷاﺔﻣدﻘﺗﻣﻟاةروﻛذﻣﻟاﻲﻓثﺣﺑﻟا .
+ذاھرﯾرﻘﺗﻟادمﻘﯾﺢﯾرﺷﺗﻟالﻣﺎﻛﻟاﺔﯾﻣوارزﺧﻠﻟنﻣظورﻧﻣﺔﺳدﻧﮭﻟاﺔﯾﺳﻛﻌﻟا،ﺔﯾﺋﺎﻧﺟﻟا
+ ً
+راﻓوﻣودﻛﻟاطﺋراﺧﻟواﺔﯾﻧﺎﯾﺑﻟاﺔﻣزﻼﻟامﮭﻔﻟلﻛتﯾﺎﺑﻲﻓ
+ﺔﯾﻠﻣﻌﻟا.
+8. ﻊﺟراﻣﻟادرﺎﺻﻣﻟوانﻣﺿ)قﺎﯾﺳﻟا )
+مﺗدﺎﻣﺗﻋﻻاﻲﻓذاھلﯾﻠﺣﺗﻟاﻰﻠﻋقﺋﺎﺛوﻟاﺔﯾﻧﻘﺗﻟاروعﺷﻣﻟدﯾدروﻧأوحﺗﻔﻣدرﺻﻣﻟا (AOSP)
+ ً
+ داﯾدﺣﺗوتﺎﻔﻠﻣ cryptfs.h و
+cryptfs.cpp 
+9
+، ﺔﻓﺎﺿﻹﺎﺑﻰﻟإثﺎﺣﺑﻷاﺔﯾﻧﻣﻷاولﺣتﺎﺟﻟﺎﻌﻣ Kirin 
+2
+، لﯾﻟودأدواتلﯾﻠﺣﺗﻟا.ﻲﺋﺎﻧﺟﻟا
+14
+درﺎﺻﻣﻟاﻲﺗﻟامﺗسﺎﺑﺗﻗﻻاﺎﮭﻧﻣ
+1. File-based encryption - Android Open Source Project, مﺗولﺻوﻟاﺦﯾرﺎﺗﺑ رﺑﻣﻓوﻧ21,
+2025، https://source.android.com/docs/security/features/encryption/file-based
+2. Unearthing the TrustedCore: A Critical Review on Huawei's Trusted Execution
+Environment - USENIX, مﺗولﺻوﻟاﺦﯾرﺎﺗﺑ رﺑﻣﻓوﻧ21,2025 ،
+https://www.usenix.org/system/files/woot20-paper-busch.pdf
+3. 22-Hexacon-Hara-Kirin_Dissecting_the_Privileged_Components_of_Huawei_Mob
+ile_Devices.pdf, مﺗولﺻوﻟاﺦﯾرﺎﺗﺑ رﺑﻣﻓوﻧ21,2025 ،
+https://2022.hexacon.fr/slides/22-Hexacon-Hara-Kirin_Dissecting_the_Privileged_
+Components_of_Huawei_Mobile_Devices.pdf
+4. Android 7 File Based Encryption | PDF | Key (Cryptography) - Scribd, مﺗولﺻوﻟاﺦﯾرﺎﺗﺑ
+رﺑﻣﻓوﻧ21,2025 ،
+https://www.scribd.com/document/405186338/Android-7-File-Based-Encryption
+5. cryptfs.h - is:wip · Gerrit Code Review, مﺗولﺻوﻟاﺦﯾرﺎﺗﺑ رﺑﻣﻓوﻧ21,2025 ،
+https://gerrit.twrp.me/c/android_bootable_recovery/+/5405/24/crypto/fde/cryptfs.
+h
+6. Revisiting Android disk encryption - Android Explorations, مﺗولﺻوﻟاﺦﯾرﺎﺗﺑ رﺑﻣﻓوﻧ21,
+2025،
+https://nelenkov.blogspot.com/2014/10/revisiting-android-disk-encryption.html
+7. Diff -
+9bf2a320e73a82c420dfb4beaf976e6d5ac4365a^2..9bf2a320e73a82c420dfb4be
+af976e6d5ac4365a - platform/system/vold - Git at Google - Android
+GoogleSource, مﺗولﺻوﻟاﺦﯾرﺎﺗﺑ رﺑﻣﻓوﻧ21,2025 ،
+https://android.googlesource.com/platform/system/vold/+/9bf2a320e73a82c420d
+fb4beaf976e6d5ac4365a%5E2..9bf2a320e73a82c420dfb4beaf976e6d5ac4365a/
+
+8. cryptfs.h - platform/system/vold - Git at Google - Android GoogleSource, مﺗولﺻوﻟا
+ﺦﯾرﺎﺗﺑ رﺑﻣﻓوﻧ21,2025 ،
+https://android.googlesource.com/platform/system/vold/+/refs/heads/kitkat-dev/c
+ryptfs.h
+9. cryptfs.cpp - platform/system/vold - Git at Google - Android GoogleSource, مﺗ
+ولﺻوﻟاﺦﯾرﺎﺗﺑ رﺑﻣﻓوﻧ21,2025 ،
+https://android.googlesource.com/platform/system/vold/+/refs/heads/android10-
+dev/cryptfs.cpp
+10. Diff -
+140116266e379fbcf716baf234d6dc8b33344062^2..140116266e379fbcf716baf234
+d6dc8b33344062 - platform/system/vold - Git at Google - Android
+GoogleSource, مﺗولﺻوﻟاﺦﯾرﺎﺗﺑ رﺑﻣﻓوﻧ21,2025 ،
+https://android.googlesource.com/platform/system/vold/+/140116266e379fbcf716
+baf234d6dc8b33344062%5E2..140116266e379fbcf716baf234d6dc8b33344062/
+11. Full-disk encryption - Android Open Source Project, مﺗولﺻوﻟاﺦﯾرﺎﺗﺑ رﺑﻣﻓوﻧ21,2025 ،
+https://source.android.com/docs/security/features/encryption/full-disk
+12. scrypt - Wikipedia, مﺗولﺻوﻟاﺦﯾرﺎﺗﺑ رﺑﻣﻓوﻧ21,2025 ،
+https://en.wikipedia.org/wiki/Scrypt
+13. The scrypt parameters - Filippo Valsorda, مﺗولﺻوﻟاﺦﯾرﺎﺗﺑ رﺑﻣﻓوﻧ21,2025 ،
+https://words.filippo.io/the-scrypt-parameters/
+14. Huawei Kirin-based devices - Passware Support, مﺗولﺻوﻟاﺦﯾرﺎﺗﺑ رﺑﻣﻓوﻧ21,2025 ،
+https://support.passware.com/hc/en-us/articles/5322634311575-Huawei-Kirin-bas
+ed-devices
