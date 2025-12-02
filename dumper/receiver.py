@@ -1,179 +1,254 @@
 #!/usr/bin/env python3
 """
-XLoader Dump Receiver
-
-This script receives the XLoader dump sent by the dumper payload
-over VCOM/UART and saves it to a file.
+XLoader eMMC Dumper - USB Receiver
+Uses the same patched inquiry protocol as exploit.py
 
 Protocol:
-    1. Start marker (4 bytes): 0xAA55AA55
-    2. Total size (4 bytes): Little-endian
-    3. Chunk size (4 bytes): Little-endian
-    4. For each chunk:
-       - Chunk marker (4 bytes): 0x55AA55AA
-       - Offset (4 bytes): Little-endian
-       - Length (4 bytes): Little-endian
-       - Data (length bytes)
-       - Checksum (4 bytes): Sum of all bytes in data
-    5. End marker (4 bytes): 0xDEADBEEF
+- Host sends: 0xCD + SEQ + ~SEQ + ADDRESS(4 bytes LE) + CRC(2 bytes)
+- Device responds with 1024 bytes of eMMC data
+
+Usage:
+    python receiver.py [output_file] [size]
+    python receiver.py xloader_dump.bin 0x40000
 """
 
 import serial
 import serial.tools.list_ports
 import struct
+import binascii
 import sys
 import time
+import os
 import argparse
 
-# Protocol markers
-MARKER_START = 0xAA55AA55
-MARKER_CHUNK = 0x55AA55AA
-MARKER_END = 0xDEADBEEF
+CHUNK_SIZE = 0x400  # 1024 bytes
+DEFAULT_SIZE = 0x40000  # 256KB
 
-def find_device():
-    """Find Huawei device in VCOM mode."""
-    ports = serial.tools.list_ports.comports()
+
+def calc_crc(data, crc=0):
+    """Calculate CRC for command packet (same as exploit.py)"""
+    for char in data:
+        crc = ((crc << 8) | char) ^ binascii.crc_hqx(bytes([(crc >> 8) & 0xFF]), 0)
+    for i in range(0, 2):
+        crc = ((crc << 8) | 0) ^ binascii.crc_hqx(bytes([(crc >> 8) & 0xFF]), 0)
+    return crc & 0xFFFF
+
+
+def inquiry_patched_cmd(seq, address):
+    """Create patched inquiry command with address (same as exploit.py)"""
+    cmd = struct.pack(">BBB", 0xCD, seq & 0xFF, ~seq & 0xFF)
+    cmd += address.to_bytes(length=4, byteorder="little")
+    cmd += calc_crc(cmd).to_bytes(length=2, byteorder="big")
+    return cmd
+
+
+def connect_device():
+    """Connect to Kirin 710 device in USB download mode"""
+    device = None
+    ports = serial.tools.list_ports.comports(include_links=False)
+    
     for port in ports:
-        # Huawei VCOM typically shows up with VID 0x12D1
-        if port.vid == 0x12D1:
-            print(f"Found device: {port.device} (VID={hex(port.vid)}, PID={hex(port.pid)})")
-            return port.device
-    return None
-
-def read_word(ser):
-    """Read a 32-bit little-endian word from serial."""
-    data = ser.read(4)
-    if len(data) != 4:
-        raise Exception(f"Failed to read word, got {len(data)} bytes")
-    return struct.unpack('<I', data)[0]
-
-def calculate_checksum(data):
-    """Calculate simple sum checksum of data."""
-    return sum(data) & 0xFFFFFFFF
-
-def receive_dump(port, output_file, baudrate=115200):
-    """Receive XLoader dump and save to file."""
-    
-    print(f"Opening {port} at {baudrate} baud...")
-    ser = serial.Serial(port=port, baudrate=baudrate, timeout=30)
-    
-    # Flush any pending data
-    ser.reset_input_buffer()
-    
-    print("Waiting for start marker...")
-    
-    # Wait for start marker
-    buffer = b''
-    start_marker_bytes = struct.pack('<I', MARKER_START)
-    
-    while True:
-        byte = ser.read(1)
-        if not byte:
-            continue
-        buffer += byte
-        if len(buffer) > 4:
-            buffer = buffer[-4:]
-        if buffer == start_marker_bytes:
-            print("Start marker received!")
+        if port.vid == 0x12D1 and port.pid == 0x3609:
+            device = port.device
+            print(f"[+] Found Kirin 710: {device}")
             break
     
-    # Read header
-    total_size = read_word(ser)
-    chunk_size = read_word(ser)
+    if device is None:
+        # List all available ports for debugging
+        print("[-] Kirin 710 device not found (VID:0x12D1 PID:0x3609)")
+        print("[*] Available ports:")
+        for port in ports:
+            vid = f"0x{port.vid:04X}" if port.vid else "None"
+            pid = f"0x{port.pid:04X}" if port.pid else "None"
+            print(f"    {port.device} - VID:{vid} PID:{pid} - {port.description}")
+        sys.exit(1)
     
-    print(f"Total size: {total_size} bytes (0x{total_size:X})")
-    print(f"Chunk size: {chunk_size} bytes (0x{chunk_size:X})")
+    return serial.Serial(
+        port=device,
+        baudrate=115200,
+        dsrdtr=True,
+        rtscts=True,
+        timeout=2
+    )
+
+
+def dump_emmc(serial_port, output_file, start_offset=0, size=DEFAULT_SIZE):
+    """
+    Dump eMMC using patched inquiry protocol
     
-    # Prepare output buffer
-    output_data = bytearray(total_size)
-    bytes_received = 0
-    chunks_received = 0
-    errors = 0
+    Args:
+        serial_port: Open serial connection
+        output_file: Output filename
+        start_offset: Starting byte offset in eMMC
+        size: Number of bytes to dump
+    """
+    print(f"\n[*] Starting eMMC dump")
+    print(f"    Start offset: 0x{start_offset:08X}")
+    print(f"    Size: 0x{size:X} ({size // 1024} KB)")
+    print(f"    Output: {output_file}")
+    print()
     
-    # Receive chunks
-    while bytes_received < total_size:
-        # Wait for chunk marker
-        marker = read_word(ser)
-        if marker != MARKER_CHUNK:
-            if marker == MARKER_END:
-                print("Received end marker early!")
-                break
-            print(f"Warning: Expected chunk marker, got 0x{marker:08X}")
-            errors += 1
-            continue
-        
-        # Read chunk header
-        offset = read_word(ser)
-        length = read_word(ser)
-        
-        # Read chunk data
-        chunk_data = ser.read(length)
-        if len(chunk_data) != length:
-            print(f"Warning: Expected {length} bytes, got {len(chunk_data)}")
-            errors += 1
-            continue
-        
-        # Read and verify checksum
-        received_checksum = read_word(ser)
-        calculated_checksum = calculate_checksum(chunk_data)
-        
-        if received_checksum != calculated_checksum:
-            print(f"Warning: Checksum mismatch at offset 0x{offset:X}")
-            print(f"  Received: 0x{received_checksum:08X}, Calculated: 0x{calculated_checksum:08X}")
-            errors += 1
-            # Still store the data, user can decide what to do
-        
-        # Store data
-        output_data[offset:offset+length] = chunk_data
-        bytes_received += length
-        chunks_received += 1
-        
-        # Progress
-        percent = (bytes_received * 100) // total_size
-        print(f"\rProgress: {bytes_received}/{total_size} bytes ({percent}%) - {chunks_received} chunks", end='')
-    
-    print()  # Newline after progress
-    
-    # Wait for end marker
-    marker = read_word(ser)
-    if marker == MARKER_END:
-        print("End marker received!")
-    else:
-        print(f"Warning: Expected end marker, got 0x{marker:08X}")
-    
-    ser.close()
-    
-    # Save to file
     with open(output_file, 'wb') as f:
-        f.write(output_data)
+        offset = start_offset
+        end_offset = start_offset + size
+        seq = 1
+        total_chunks = size // CHUNK_SIZE
+        chunk_num = 0
+        errors = 0
+        
+        while offset < end_offset:
+            # Send inquiry command with current offset
+            cmd = inquiry_patched_cmd(seq, offset)
+            serial_port.write(cmd)
+            
+            # Small delay for device to process
+            time.sleep(0.01)
+            
+            # Read response (1024 bytes)
+            data = serial_port.read(CHUNK_SIZE)
+            
+            if len(data) != CHUNK_SIZE:
+                print(f"\n[!] Short read at 0x{offset:08X}: got {len(data)} bytes")
+                
+                # Retry up to 3 times
+                for retry in range(3):
+                    time.sleep(0.1)
+                    serial_port.write(cmd)
+                    time.sleep(0.02)
+                    data = serial_port.read(CHUNK_SIZE)
+                    if len(data) == CHUNK_SIZE:
+                        print(f"    Retry {retry + 1} successful")
+                        break
+                
+                if len(data) != CHUNK_SIZE:
+                    print(f"[-] Failed to read chunk at 0x{offset:08X}")
+                    # Pad with zeros and continue
+                    data = data + b'\x00' * (CHUNK_SIZE - len(data))
+                    errors += 1
+            
+            # Write to file
+            f.write(data)
+            
+            # Progress
+            chunk_num += 1
+            progress = (chunk_num * 100) // total_chunks
+            print(f"\r[*] Progress: {chunk_num}/{total_chunks} ({progress}%) - 0x{offset:08X}", end="")
+            
+            # Next chunk
+            offset += CHUNK_SIZE
+            seq = (seq + 1) & 0xFF
+        
+        print()
     
-    print(f"\nDump saved to: {output_file}")
-    print(f"Total bytes: {bytes_received}")
-    print(f"Total chunks: {chunks_received}")
-    print(f"Errors: {errors}")
+    file_size = os.path.getsize(output_file)
+    print(f"\n[+] Dump complete!")
+    print(f"    File: {output_file}")
+    print(f"    Size: {file_size} bytes")
+    print(f"    Errors: {errors}")
     
     return errors == 0
 
+
+def verify_dump(filename):
+    """Basic verification of dumped data"""
+    print(f"\n[*] Verifying dump: {filename}")
+    
+    with open(filename, 'rb') as f:
+        data = f.read()
+    
+    # Check for all zeros
+    if all(b == 0 for b in data[:256]):
+        print("[-] WARNING: First 256 bytes are all zeros!")
+    
+    # Check for all 0xFF
+    if all(b == 0xFF for b in data[:256]):
+        print("[-] WARNING: First 256 bytes are all 0xFF (empty/erased)!")
+    
+    # Simple checksum
+    checksum = sum(data) & 0xFFFFFFFF
+    print(f"[+] Checksum: 0x{checksum:08X}")
+    print(f"[+] Size: {len(data)} bytes")
+    
+    # Look for ARM code patterns
+    first_word = struct.unpack('<I', data[:4])[0]
+    print(f"[+] First word: 0x{first_word:08X}")
+    
+    return True
+
+
 def main():
-    parser = argparse.ArgumentParser(description='Receive XLoader dump over VCOM')
-    parser.add_argument('-p', '--port', help='Serial port (auto-detect if not specified)')
-    parser.add_argument('-o', '--output', default='xloader_dump.bin', help='Output file')
-    parser.add_argument('-b', '--baudrate', type=int, default=115200, help='Baud rate')
+    parser = argparse.ArgumentParser(
+        description='XLoader eMMC Dumper - USB Receiver (Patched Inquiry Protocol)'
+    )
+    parser.add_argument(
+        '-o', '--output',
+        default='xloader_dump.bin',
+        help='Output filename (default: xloader_dump.bin)'
+    )
+    parser.add_argument(
+        '-s', '--size',
+        default='0x40000',
+        help='Size to dump in bytes (default: 0x40000 = 256KB)'
+    )
+    parser.add_argument(
+        '--offset',
+        default='0',
+        help='Starting offset in eMMC (default: 0)'
+    )
+    parser.add_argument(
+        '-p', '--port',
+        help='Serial port (auto-detect if not specified)'
+    )
+    parser.add_argument(
+        '--no-verify',
+        action='store_true',
+        help='Skip verification after dump'
+    )
     
     args = parser.parse_args()
     
-    # Find port if not specified
-    port = args.port
-    if not port:
-        port = find_device()
-        if not port:
-            print("Error: No device found. Please specify port with -p")
-            sys.exit(1)
+    # Parse size and offset
+    size = int(args.size, 0)
+    offset = int(args.offset, 0)
     
-    # Receive dump
-    success = receive_dump(port, args.output, args.baudrate)
+    print("=" * 60)
+    print("  XLoader eMMC Dumper - USB Receiver")
+    print("  (Patched Inquiry Protocol)")
+    print("=" * 60)
     
-    sys.exit(0 if success else 1)
+    # Connect to device
+    if args.port:
+        print(f"[*] Using port: {args.port}")
+        serial_port = serial.Serial(
+            port=args.port,
+            baudrate=115200,
+            dsrdtr=True,
+            rtscts=True,
+            timeout=2
+        )
+    else:
+        print("[*] Auto-detecting device...")
+        serial_port = connect_device()
+    
+    # Clear any pending data
+    serial_port.reset_input_buffer()
+    
+    # Wait a moment for dumper to be ready
+    print("[*] Waiting for dumper to initialize...")
+    time.sleep(0.5)
+    
+    # Perform dump
+    success = dump_emmc(serial_port, args.output, offset, size)
+    
+    # Verify
+    if success and not args.no_verify:
+        verify_dump(args.output)
+    
+    serial_port.close()
+    print("\n[*] Done!")
+    
+    return 0 if success else 1
 
-if __name__ == '__main__':
-    main()
+
+if __name__ == "__main__":
+    sys.exit(main())
