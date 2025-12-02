@@ -1,150 +1,193 @@
-# XLoader Dumper for Kirin 710
+# XLoader eMMC Dumper (USB Version)
 
-This dumper reads the original XLoader from eMMC and sends it over VCOM/UART.
-
-## Files
-
-- `xloader_dumper.S` - Main assembly source code
-- `linker.ld` - Linker script for SRAM execution
-- `Makefile` - Build automation
-- `create_image.py` - Creates uploadable image
-- `receiver.py` - Python script to receive the dump
-
-## Building
-
-### Prerequisites
-
-1. ARM cross-compiler toolchain:
-   ```bash
-   # Ubuntu/Debian
-   sudo apt install gcc-arm-none-eabi binutils-arm-none-eabi
-   
-   # Arch Linux
-   sudo pacman -S arm-none-eabi-gcc arm-none-eabi-binutils
-   
-   # macOS (with Homebrew)
-   brew install arm-none-eabi-gcc
-   ```
-
-2. Python 3 with pyserial:
-   ```bash
-   pip install pyserial
-   ```
-
-### Build
-
-```bash
-cd dumper
-make
-```
-
-This produces:
-- `xloader_dumper.img` - Ready to upload via exploit
-- `xloader_dumper.bin` - Raw binary
-- `xloader_dumper.lst` - Disassembly listing
-
-## Usage
-
-### 1. Upload via BootROM Exploit
-
-Modify `exploit.py` to upload the dumper instead of the regular xloader:
-
-```python
-# In exploit.py, replace xloader upload with:
-with open("dumper/xloader_dumper.img", "rb") as file:
-    dumper = file.read()
-    dumper_len = len(dumper)
-
-xupload(0x22000, dumper, dumper_len, pwn=True)
-```
-
-### 2. Receive the Dump
-
-In another terminal, run the receiver:
-
-```bash
-python3 receiver.py -o original_xloader.bin
-```
-
-Or specify the port manually:
-
-```bash
-python3 receiver.py -p /dev/ttyUSB0 -o original_xloader.bin
-```
-
-### 3. Verify
-
-The receiver will show progress and verify checksums for each chunk.
+Dumps the original XLoader from eMMC using the **patched inquiry protocol** - the same USB protocol used in exploit.py for dumping decrypted fastboot.
 
 ## Protocol
 
-```
-┌─────────────────────────────────────────┐
-│ START MARKER (0xAA55AA55)               │ 4 bytes
-├─────────────────────────────────────────┤
-│ Total Size                              │ 4 bytes
-├─────────────────────────────────────────┤
-│ Chunk Size                              │ 4 bytes
-├─────────────────────────────────────────┤
-│ ┌─────────────────────────────────────┐ │
-│ │ CHUNK MARKER (0x55AA55AA)           │ │ 4 bytes
-│ ├─────────────────────────────────────┤ │
-│ │ Offset                              │ │ 4 bytes
-│ ├─────────────────────────────────────┤ │
-│ │ Length                              │ │ 4 bytes
-│ ├─────────────────────────────────────┤ │
-│ │ Data                                │ │ Length bytes
-│ ├─────────────────────────────────────┤ │
-│ │ Checksum                            │ │ 4 bytes
-│ └─────────────────────────────────────┘ │
-│          ... repeat for each chunk ...  │
-├─────────────────────────────────────────┤
-│ END MARKER (0xDEADBEEF)                 │ 4 bytes
-└─────────────────────────────────────────┘
-```
-
-## Memory Map
+Uses the exact same protocol as `inquiry_patched_cmd()` in exploit.py:
 
 ```
-0x00000000 - 0x00010000  BootROM (16KB)
-0x00020000 - 0x00080000  SRAM (384KB)
-0x00022000              Dumper load address
-0x00060000              Read buffer
-0x00070000              Stack
+Host sends:    0xCD + SEQ + ~SEQ + ADDRESS(4 bytes LE) + CRC(2 bytes)
+Device sends:  1024 bytes of eMMC data
 ```
 
-## Configuration
+This is compatible with the existing exploit infrastructure.
 
-Edit constants in `xloader_dumper.S`:
+## Files
 
-```asm
-.equ XLOADER_EMMC_OFFSET,   0x0         /* eMMC byte offset */
-.equ XLOADER_SIZE,          0x40000     /* Size to dump (256KB) */
-.equ CHUNK_SIZE,            0x400       /* Bytes per chunk (1024) */
+| File | Description |
+|------|-------------|
+| `xloader_dumper.S` | ARM Thumb assembly dumper (USB version) |
+| `receiver.py` | Python script to receive dump via USB |
+| `linker.ld` | Linker script (loads at 0x22000) |
+| `Makefile` | Build instructions |
+| `create_image.py` | Prepares binary for bootrom exploit |
+
+## Building
+
+```bash
+cd dumper
+make clean
+make
+```
+
+Output: `xloader_dumper.img`
+
+## Usage
+
+### Method 1: Standalone Receiver
+
+#### Step 1: Modify exploit.py to upload dumper
+
+```python
+# Replace xloader.img with dumper
+with open("dumper/xloader_dumper.img", "rb") as file:
+    loader = file.read()
+    loader_len = len(loader)
+```
+
+#### Step 2: Run exploit to upload dumper
+
+```bash
+python exploit.py
+```
+
+#### Step 3: Run receiver
+
+```bash
+# Default: dump 256KB XLoader
+python dumper/receiver.py
+
+# Custom output and size
+python dumper/receiver.py -o original_xloader.bin -s 0x80000
+
+# Dump from specific offset
+python dumper/receiver.py -o bootpart.bin --offset 0x10000 -s 0x20000
+```
+
+### Method 2: Integrated in exploit.py
+
+Add this code directly to exploit.py after uploading the dumper:
+
+```python
+# Upload dumper instead of xloader
+with open("dumper/xloader_dumper.img", "rb") as file:
+    dumper = file.read()
+xupload(0x22000, dumper, len(dumper), pwn=True)
+
+print("Dumping XLoader from eMMC...")
+
+# Dump using patched inquiry protocol
+myfile = open('xloader_dump.bin', 'wb')
+addr = 0x0
+final = 0x40000  # 256KB
+
+while addr < final:
+    serialPort.write(inquiry_patched_cmd(1, addr))
+    time.sleep(0.01)
+    rsp = serialPort.read(0x400)  # 1024 bytes
+    
+    if len(rsp) != 0x400:
+        print(f"\nError at 0x{addr:X}: got {len(rsp)} bytes")
+        break
+    
+    myfile.write(rsp)
+    print(f"\r0x{addr:08X} / 0x{final:08X}", end="")
+    addr += 0x400
+
+myfile.close()
+print("\nDump complete!")
+```
+
+## How It Works
+
+```
+┌─────────────┐                    ┌─────────────┐
+│   Host PC   │                    │  Kirin 710  │
+│             │                    │   (SRAM)    │
+│  exploit.py │                    │             │
+│      or     │                    │   Dumper    │
+│ receiver.py │                    │     ▼       │
+│             │ ──inquiry_cmd───▶ │  Parse CMD  │
+│             │   (0xCD + addr)    │     ▼       │
+│             │                    │ Read eMMC   │
+│             │ ◀──1024 bytes──── │     ▼       │
+│             │                    │  Send USB   │
+│  ┌───────┐  │                    │             │
+│  │ .bin  │  │                    │             │
+│  └───────┘  │                    │             │
+└─────────────┘                    └─────────────┘
+```
+
+## Command Line Options
+
+```
+usage: receiver.py [-h] [-o OUTPUT] [-s SIZE] [--offset OFFSET] [-p PORT] [--no-verify]
+
+Options:
+  -o, --output    Output filename (default: xloader_dump.bin)
+  -s, --size      Size to dump in bytes (default: 0x40000 = 256KB)
+  --offset        Starting offset in eMMC (default: 0)
+  -p, --port      Serial port (auto-detect if not specified)
+  --no-verify     Skip verification after dump
+```
+
+## Examples
+
+```bash
+# Dump XLoader (default 256KB)
+python receiver.py
+
+# Dump 512KB
+python receiver.py -s 0x80000
+
+# Dump specific region
+python receiver.py --offset 0x20000 -s 0x10000 -o region.bin
+
+# Specify port manually
+python receiver.py -p /dev/ttyUSB0
+```
+
+## Memory Layout
+
+```
+SRAM:
+  0x22000 - Dumper code (load address)
+  0x60000 - USB RX buffer
+  0x61000 - USB TX buffer  
+  0x62000 - eMMC read buffer
+  0x70000 - Stack top
+
+Peripherals:
+  0xE8A10000 - USB OTG controller
+  0xFF3E0000 - eMMC controller
 ```
 
 ## Notes
 
-1. **UART vs VCOM**: The code uses UART0 which is typically exposed as VCOM over USB. If your device uses a different UART, modify `UART0_BASE`.
-
-2. **eMMC Boot Partition**: XLoader is typically in the eMMC boot partition. You may need to switch partitions first if the boot partition isn't selected.
-
-3. **Timing**: If you experience data corruption, try reducing the baud rate or adding delays between chunks.
-
-4. **Alternative**: If UART doesn't work, consider using the USB download protocol (like the patched inquiry command in the original exploit).
+1. **Same Protocol**: Uses identical USB protocol as fastboot dump in exploit.py
+2. **Boot Partition**: XLoader typically resides in eMMC boot partition
+3. **Chunk Size**: Fixed 1024 bytes per request (0x400)
+4. **Compatibility**: Works with Kirin 710/710A (VID:0x12D1 PID:0x3609)
 
 ## Troubleshooting
 
-### No output from device
-- Check UART base address for your specific Kirin 710 variant
-- Verify the dumper is actually executing (check for USB re-enumeration)
+### No response from dumper
+- Ensure dumper uploaded successfully via exploit
+- Check USB connection and device enumeration
+- Increase timeout in receiver.py
 
-### Checksum errors
-- Reduce baud rate
-- Check for electrical noise/interference
-- Add delays in assembly code between byte transmissions
+### Short reads / incomplete chunks
+- Increase `time.sleep()` delay between commands
+- Check for USB buffer issues
+- Try lower chunk rate
 
-### eMMC read failures
-- eMMC controller base address may differ
-- Boot partition may need to be explicitly selected
-- Controller may need different initialization sequence
+### All zeros or 0xFF
+- eMMC boot partition may need explicit selection
+- Check if eMMC is initialized
+- Verify offset is correct
+
+### Device not found
+- Check if device is in download mode
+- Verify VID/PID (should be 0x12D1:0x3609)
+- Try specifying port manually with `-p`
