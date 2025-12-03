@@ -2,6 +2,17 @@
 
 Dumps the original XLoader from eMMC using the **patched inquiry protocol** - the same USB protocol used in exploit.py for dumping decrypted fastboot.
 
+## Versions
+
+- **C Version** (default): `xloader_dumper.c` - Easier to understand and modify
+- **Assembly Version**: `xloader_dumper.S` - Original low-level implementation
+
+## XLoader Location in eMMC
+
+- **Start**: `0x20000` (128KB offset)
+- **End**: `0x50000` (320KB offset)
+- **Size**: `0x30000` (192KB)
+
 ## Protocol
 
 Uses the exact same protocol as `inquiry_patched_cmd()` in exploit.py:
@@ -17,9 +28,15 @@ This is compatible with the existing exploit infrastructure.
 
 | File | Description |
 |------|-------------|
-| `xloader_dumper.S` | ARM Thumb assembly dumper (USB version) |
+| **C Version** | |
+| `xloader_dumper.c` | C source code - main dumper logic |
+| `startup.S` | Assembly startup code for C version |
+| `linker_c.ld` | Linker script for C version |
+| **Assembly Version** | |
+| `xloader_dumper.S` | ARM Thumb assembly dumper |
+| `linker.ld` | Linker script for assembly version |
+| **Common** | |
 | `receiver.py` | Python script to receive dump via USB |
-| `linker.ld` | Linker script (loads at 0x22000) |
 | `Makefile` | Build instructions |
 | `create_image.py` | Prepares binary for bootrom exploit |
 
@@ -28,10 +45,15 @@ This is compatible with the existing exploit infrastructure.
 ```bash
 cd dumper
 make clean
+
+# Build C version (default)
 make
+
+# Build assembly version
+make asm
 ```
 
-Output: `xloader_dumper.img`
+Output: `xloader_dumper_c.img` (C) or `xloader_dumper.img` (ASM)
 
 ## Usage
 
